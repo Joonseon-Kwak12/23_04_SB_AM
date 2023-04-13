@@ -50,11 +50,34 @@ public class UsrArticleController {
 	public Article doAdd(String title, String body) {
 		return writeArticle(title, body);
 	}
-
+	
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
 		return articles;
+	}
+
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				articles.remove(article);
+				return id + "번 글이 삭제되었습니다.";
+			}
+		}
+		return id + "번 글은 존재하지 않습니다.";
+	}
+	
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public String doModify(int id) {
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				return id + "번 글이 수정되었습니다.";
+			}
+		}
+		return id + "번 글은 존재하지 않습니다.";
 	}
 	
 }

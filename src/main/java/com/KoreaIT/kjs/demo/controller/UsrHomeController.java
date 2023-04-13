@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.KoreaIT.kjs.demo.vo.Article;
 
 @Controller
 public class UsrHomeController {
@@ -84,11 +82,3 @@ public class UsrHomeController {
 	}
 }
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class Article {
-	private int id;
-	private String title;
-	private String body;
-}

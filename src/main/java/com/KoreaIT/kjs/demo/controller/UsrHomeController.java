@@ -12,16 +12,16 @@ public class UsrHomeController {
 		this.count = 0;
 	}
 	
-	@RequestMapping("/usr/home/main4")
+	@RequestMapping("/usr/home/getCount")
 	@ResponseBody
-	public String showMain4() {
+	public String getCount() {
 		return "count: " + count++;
 	}
 	
-	@RequestMapping("/usr/home/main4_0")
+	@RequestMapping("/usr/home/setCount")
 	@ResponseBody
-	public String showMain4_0() {
-		count = 0;
-		return "/usr/home/main4의 count가 0으로 설정되었습니다.";
+	public String setCount(int count) {
+		this.count = count;
+		return "count의 값이 " + this.count + 	"으로 설정되었습니다.";
 	}
 }

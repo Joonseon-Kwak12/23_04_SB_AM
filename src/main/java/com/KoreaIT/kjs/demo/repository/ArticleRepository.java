@@ -15,7 +15,7 @@ public interface ArticleRepository {
 
 	// INSERT INTO article SET regDate=NOW(), updateDate=NOW(), title=?, body=?
 	@Insert("INSERT INTO article SET regDate=NOW(), updateDate=NOW(), title=#{title}, body=#{body}")
-	public Article writeArticle(String title, String body);
+	public void writeArticle(String title, String body);
 	
 	// SELECT * FROM article ORDER BY id DESC
 	@Select("SELECT * FROM article ORDER BY id DESC")
@@ -32,5 +32,7 @@ public interface ArticleRepository {
 	// UPDATE article SET updateDate=NOW(), id=?, title=?, body=?
 	@Update("UPDATE article SET updateDate= NOW(), title = #{title}, `body` = #{body} WHERE id = #{id}")
 	public void modifyArticle(int id, String title, String body);
-
+	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
 }

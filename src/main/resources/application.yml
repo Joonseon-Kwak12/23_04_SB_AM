@@ -3,7 +3,9 @@ server:
 ##MySQL
 spring:
   datasource:
-    url: jdbc:mysql://localhost:8081/SBAM
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/SB_AM_04?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     username: root
     password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  type-aliases-package: com.KoreaIt.kjs.demo.vo

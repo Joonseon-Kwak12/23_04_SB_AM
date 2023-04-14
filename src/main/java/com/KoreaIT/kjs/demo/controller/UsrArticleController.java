@@ -19,7 +19,7 @@ public class UsrArticleController {
 	private ArticleService articleService;
 
 //	// 생성자
-//	public UsrArticleController(UsrArticleService usrArticleService) {
+//	public UsrArticleController(ArticleService articleService) {
 //		// this.usrArticleService = new usrArticleService( ); // new ~()할 필요 없이 @Autowired로 주입 받아서 사용 가능
 //	}
  
@@ -55,7 +55,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
-		return articleService.articles();
+		return articleService.getArticles();
 	}
 
 	@RequestMapping("/usr/article/getArticle")

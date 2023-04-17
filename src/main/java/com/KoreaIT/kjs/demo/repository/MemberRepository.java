@@ -21,6 +21,14 @@ public interface MemberRepository {
 			SELECT *
 			FROM `member`
 			WHERE loginId = #{loginId}
-			""")
+			""") // 어노테이션 이용할 때 여러줄 필요하면 큰따옴표 세번 """ 쿼리문 """
 	public Member getMemberByLoginId(String loginId);
+
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE `name` = #{name}
+			AND email = #{email}
+			""")
+	public Member getMemberByNameAndEmail(String name, String email);
 }

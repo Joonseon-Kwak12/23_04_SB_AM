@@ -13,6 +13,15 @@ public class Member {
 	
 	private int id;
 	private LocalDateTime regDate;
-	private String title;
-	private String body;
+	private LocalDateTime updateDate;
+	private String loginId;
+	private String loginPw;
+	private String name;
+	private String nickname;
+	private String cellphoneNum;
+	private String email;
+	
+	public Member(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		// TODO Auto-generated constructor stub
+	}
 }

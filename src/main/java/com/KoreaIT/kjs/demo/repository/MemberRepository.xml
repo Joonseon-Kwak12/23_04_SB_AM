@@ -3,11 +3,12 @@
 
 <mapper namespace="com.KoreaIT.kjs.demo.repository.MemberRepository">
 
-	<insert id="Join">
+	<insert id="join">
 		INSERT INTO `member`
 		SET regDate = NOW(),
+		updateDate = NOW(),
 		loginId = #{loginId},
-		loginPW = #{loginPW},
+		loginPw = #{loginPw},
 		`name` = #{name},
 		nickname = #{nickname},
 		cellphoneNum = #{cellphoneNum},

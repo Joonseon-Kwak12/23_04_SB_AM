@@ -24,4 +24,7 @@
 	</select>
 	<!-- SELECT LAST_INSERT_ID() FROM `member` 이렇게 FROM 붙이면 안 됨 -->
 
+<!-- 	<select id="getCountOfLoginId" resultType="int">
+		SELECT COUNT(*) FROM `member` WHERE loginId = #{loginId} 
+	</select> -->
 </mapper>

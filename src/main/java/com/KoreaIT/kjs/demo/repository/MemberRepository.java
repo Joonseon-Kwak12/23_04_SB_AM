@@ -1,6 +1,7 @@
 package com.KoreaIT.kjs.demo.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.KoreaIT.kjs.demo.vo.Member;
 
@@ -13,4 +14,13 @@ public interface MemberRepository {
 	public Member getMemberById(int id);
 
 	public int getLastInsertId();
+	
+//	public int getCountOfLoginId(String loginId);
+
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE loginId = #{loginId}
+			""")
+	public Member getMemberByLoginId(String loginId);
 }

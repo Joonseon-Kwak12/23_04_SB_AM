@@ -22,6 +22,24 @@ public class UsrMemberController {
 //		if (countOfLoginId != 0) {
 //			return "이미 사용중인 아이디입니다.";
 //		}
+		if (loginId == null || loginId.trim().length() == 0) {
+			return "아이디를 입력해주세요";
+		}
+		if (loginPw == null || loginPw.trim().length() == 0) {
+			return "비밀번호를 입력해주세요";
+		}
+		if (name == null || name.trim().length() == 0) {
+			return "이름을 입력해주세요";
+		}
+		if (nickname == null || nickname.trim().length() == 0) {
+			return "닉네임을 입력해주세요";
+		}
+		if (cellphoneNum == null || cellphoneNum.trim().length() == 0) {
+			return "전화번호를 입력해주세요";
+		}
+		if (email == null || email.trim().length() == 0) {
+			return "이메일을 입력해주세요";
+		}
 		
 		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		

@@ -14,5 +14,14 @@
 		cellphoneNum = #{cellphoneNum},
 		email = #{email}
 	</insert>
+	
+	<select id="getMemberById" resultType="Member">
+		SELECT * FROM `member` WHERE id = #{id}
+	</select>
+	
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID() 
+	</select>
+	<!-- SELECT LAST_INSERT_ID() FROM `member` 이렇게 FROM 붙이면 안 됨 -->
 
 </mapper>

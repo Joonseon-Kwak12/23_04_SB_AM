@@ -1,5 +1,8 @@
 package com.KoreaIT.kjs.demo.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.KoreaIT.kjs.demo.repository.MemberRepository;
@@ -42,12 +45,29 @@ public class MemberService {
 		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
 
-	private Member getMemberByLoginId(String loginId) {
+	public Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
+	}
+
+	public void login(HttpServletRequest request) {
+		
+		String loginId = (String) request.getParameter("loginId");
+		String loginPw = (String) request.getParameter("loginPw");
+		
+		Member foundMember = memberRepository.getMemberByLoginId(loginId);
+		if (foundMember.getLoginPw() != loginPw) {
+			
+		}
+		
+		
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("loginPw", loginPw);
 	}
 	
 //	public int getCountOfLoginId(String loginId) {

@@ -1,5 +1,6 @@
 package com.KoreaIT.kjs.demo.repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class TmpArticleRepository {
 	public Article writeArticle(String title, String body) {
 		int id = ++lastArticleId;
 
-		Article article = new Article(id, title, body);
+		Article article = new Article(id, LocalDateTime.now(), LocalDateTime.now(), 1, title, body);
 		articles.add(article);
 
 		return article;

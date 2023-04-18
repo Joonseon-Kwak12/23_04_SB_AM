@@ -46,7 +46,7 @@ public class UsrMemberController {
 		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if (joinRd.isFail()) {
-			return (ResultData) joinRd;
+			return (ResultData) joinRd; // 어차피 isFail() == true이면 null이라서 return 가능하긴 함...
 		}
 				
 		Member member = memberService.getMemberById(joinRd.getData1());

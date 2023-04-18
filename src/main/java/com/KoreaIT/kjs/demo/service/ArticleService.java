@@ -19,7 +19,7 @@ public class ArticleService {
 	}
 	
 	//서비스 메서드
-	public ResultData writeArticle(String title, String body) {
+	public ResultData<Integer> writeArticle(String title, String body) {
 		
 		articleRepository.writeArticle(title, body);
 		

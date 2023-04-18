@@ -18,7 +18,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 //		int countOfLoginId = memberService.getCountOfLoginId(loginId);
 //		
 //		if (countOfLoginId != 0) {
@@ -43,15 +43,14 @@ public class UsrMemberController {
 			return ResultData.from("F-6", "이메일을 입력해주세요");
 		}
 		
-		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if (joinRd.isFail()) {
-			return joinRd;
+			return (ResultData) joinRd;
 		}
-		
-		Member member = memberService.getMemberById((int)joinRd.getData1());
-		System.out.println(joinRd);
-		
+				
+		Member member = memberService.getMemberById(joinRd.getData1());
+
 		return ResultData.newData(joinRd, member);
 		// 성공했을 때 반환받은 ResultData에는 data1 자리에 회원 id만 들어가 있음,
 		// 회원 객체 전체를 반환해주려고 시도하려면 원래 ResultData 인스턴스 data1 자리에 있는 것을 member로 교체

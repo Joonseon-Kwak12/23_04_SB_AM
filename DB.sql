@@ -14,22 +14,28 @@ CREATE TABLE article(
     `body` TEXT NOT NULL
 );
 
+# 게시물 테이블 구조 변경 - memberId 컬럼 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
 # 게시물 테스트데이터 생성
 INSERT INTO article 
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 1,
 title = '제목 1',
 `body` = '내용 1';
 
 INSERT INTO article 
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 1,
 title = '제목 2',
 `body` = '내용 2';
 
 INSERT INTO article 
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 2,
 title = '제목 3',
 `body` = '내용 3';
 
@@ -37,13 +43,14 @@ title = '제목 3',
 DROP TABLE IF EXISTS `member`;
 
 SELECT * FROM `member`;
+SELECT LAST_INSERT_ID();
 
 CREATE TABLE `member`(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     loginId CHAR(20) NOT NULL,
-    loginPW CHAR(60) NOT NULL,
+    loginPw CHAR(60) NOT NULL,
     authLevel SMALLINT(2) UNSIGNED DEFAULT 3 COMMENT '권한 레벨 (3=일반, 7=관리자)', # default가 3이므로 굳이 not null 넣을 필요는 없음
     `name` CHAR(20) NOT NULL,
     nickname CHAR(20) NOT NULL,
@@ -58,7 +65,7 @@ INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
 loginId = 'admin',
-loginPW = 'admin',
+loginPw = 'admin',
 authlevel = 7,
 `name` = '관리자',
 nickname = '관리자',
@@ -70,7 +77,7 @@ INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
 loginId = 'test1',
-loginPW = 'test1',
+loginPw = 'test1',
 `name` = '테스트이름1',
 nickname = '테스트별명1',
 cellphoneNum = '01000000001',
@@ -80,8 +87,10 @@ INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
 loginId = 'test2',
-loginPW = 'test2',
+loginPw = 'test2',
 `name` = '테스트이름2',
 nickname = '테스트별명2',
 cellphoneNum = '01000000002',
 email = 'abcde2@testSBAM04.com';
+
+# localhost:8081/usr/member/doJoin?loginId=abc&loginPw=abc&name=abc&nickname=abc&cellphoneNum=01000000201&email=abc@testSBAM04.com

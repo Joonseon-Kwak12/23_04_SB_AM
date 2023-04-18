@@ -30,10 +30,6 @@ public class ResultData<DT> {
 	public boolean isFail() {
 		return !isSuccess();
 	}
-	
-	public boolean isotropic() {
-		return !isSuccess();
-	}
 
 	public static <DT> ResultData<DT> newData(ResultData rd, DT newData) {
 		return from(rd.getResultCode(), rd.getMsg(), newData);

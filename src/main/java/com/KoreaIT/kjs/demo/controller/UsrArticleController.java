@@ -75,7 +75,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("현재 게시글이 존재하지 않습니다."));
 		}
 		
-		return ResultData.from("S-1", Ut.f("현재 모든 게시물 출력."), articles);
+		return ResultData.from("S-1", Ut.f("Article List"), articles);
 	}
 
 	@RequestMapping("/usr/article/getArticle")

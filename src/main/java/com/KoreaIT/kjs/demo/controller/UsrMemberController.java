@@ -25,36 +25,36 @@ public class UsrMemberController {
 //			return "이미 사용중인 아이디입니다.";
 //		}
 		if (Ut.empty(loginId)) {
-			return "아이디를 입력해주세요";
+			return ResultData.from("F-1", "아이디를 입력해주세요.");
 		}
 		if (Ut.empty(loginPw)) {
-			return "비밀번호를 입력해주세요";
+			return ResultData.from("F-2", "비밀번호를 입력해주세요");
 		}
 		if (Ut.empty(name)) {
-			return "이름을 입력해주세요";
+			return ResultData.from("F-3", "이름을 입력해주세요");
 		}
 		if (Ut.empty(nickname)) {
-			return "닉네임을 입력해주세요";
+			return ResultData.from("F-4", "닉네임을 입력해주세요");
 		}
 		if (Ut.empty(cellphoneNum)) {
-			return "전화번호를 입력해주세요";
+			return ResultData.from("F-5", "전화번호를 입력해주세요");
 		}
 		if (Ut.empty(email)) {
-			return "이메일을 입력해주세요";
+			return ResultData.from("F-6", "이메일을 입력해주세요");
 		}
 		
-		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		if (id == -1) {
-			return ResultData.from("F-1", Ut.f("이미 사용 중인 아이디(%s)입니다.", loginId));
+		if (joinRd.isFail()) {
+			return joinRd;
 		}
 		
-		if (id == -2) {
-			return ResultData.from("F-2", Ut.f("동일한 이름(%s)과 이메일(%s)이 사용 중입니다.", name, email));
-		}
+		Member member = memberService.getMemberById((int)joinRd.getData1());
+		System.out.println(joinRd);
 		
-		Member member = memberService.getMemberById(id);
-		
-		return ResultData.from("S-1", Ut.f("회원가입 성공"), member);
+		return ResultData.newData(joinRd, member);
+		// 성공했을 때 반환받은 ResultData에는 data1 자리에 회원 id만 들어가 있음,
+		// 회원 객체 전체를 반환해주려고 시도하려면 원래 ResultData 인스턴스 data1 자리에 있는 것을 member로 교체
+		// 위 같은 행위를 해주는 newData 메소드 새로 만들어줬음
 	}
 }

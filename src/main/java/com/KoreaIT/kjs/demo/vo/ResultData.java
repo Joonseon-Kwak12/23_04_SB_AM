@@ -35,4 +35,9 @@ public class ResultData {
 		return !isSuccess();
 	}
 
+	public static ResultData newData(ResultData joinRd, Object newData) {
+		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+		// 원래 받은 데이터에서 resultCode와 msg는 그대로 갖고 오고, data1 자리에 있는 것만 교체해줌
+	}
+
 }

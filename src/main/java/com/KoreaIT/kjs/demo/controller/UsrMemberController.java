@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.KoreaIT.kjs.demo.service.MemberService;
 import com.KoreaIT.kjs.demo.util.Ut;
 import com.KoreaIT.kjs.demo.vo.Member;
+import com.KoreaIT.kjs.demo.vo.ResultData;
 
 @Controller
 public class UsrMemberController {
@@ -45,15 +46,15 @@ public class UsrMemberController {
 		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if (id == -1) {
-			return Ut.f("이미 사용 중인 아이디(%s)입니다.", loginId);
+			return ResultData.from("F-1", Ut.f("이미 사용 중인 아이디(%s)입니다.", loginId));
 		}
 		
 		if (id == -2) {
-			return Ut.f("동일한 이름(%s)과 이메일(%s)이 사용 중입니다.", name, email);
+			return ResultData.from("F-2", Ut.f("동일한 이름(%s)과 이메일(%s)이 사용 중입니다.", name, email));
 		}
 		
 		Member member = memberService.getMemberById(id);
 		
-		return member;
+		return ResultData.from("S-1", Ut.f("회원가입 성공"), member);
 	}
 }

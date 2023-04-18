@@ -20,8 +20,15 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogout(HttpSession httpSession, String loginId, String loginPw) {
+	public ResultData<Member> doLogout(HttpSession httpSession) {
 		
+		if (httpSession.getAttribute("loginedMemberId") == null) {
+			return ResultData.from("F-1", "이미 로그아웃 상태입니다.");
+		}
+		
+		httpSession.removeAttribute("loginedMemberId");
+		
+		return ResultData.from("S-1", "로그아웃 성공");
 	}
 	
 	@RequestMapping("/usr/member/doLogin")

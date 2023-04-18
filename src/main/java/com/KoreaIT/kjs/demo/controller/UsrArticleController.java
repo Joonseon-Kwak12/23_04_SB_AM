@@ -69,7 +69,7 @@ public class UsrArticleController {
 		int id = (int) writeArticleRd.getData1();
 		Article article = articleService.getArticle(id);
 		
-		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
+		return ResultData.newData(writeArticleRd, article);
 	}
 
 	

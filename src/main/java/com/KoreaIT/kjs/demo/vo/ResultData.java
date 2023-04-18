@@ -35,8 +35,8 @@ public class ResultData<DT> {
 		return !isSuccess();
 	}
 
-	public static <DT> ResultData<DT> newData(ResultData joinRd, DT newData) {
-		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	public static <DT> ResultData<DT> newData(ResultData rd, DT newData) {
+		return from(rd.getResultCode(), rd.getMsg(), newData);
 		// 원래 받은 데이터에서 resultCode와 msg는 그대로 갖고 오고, data1 자리에 있는 것만 교체해줌
 	}
 

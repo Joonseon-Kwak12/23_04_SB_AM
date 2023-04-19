@@ -5,10 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="resource/common.js" defer="defer"></script>
 </head>
 <body>
 
-	<h1>Main Page</h1>
+		<h1>Main Page</h1>
 		<header>
 				<a href="/">로고</a>
 
@@ -24,6 +26,7 @@
 		<hr />
 		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aperiam qui beatae est expedita quasi
 				repellat nemo aspernatur adipisci ipsum ipsa quos ex debitis sit voluptas odit nulla eius laudantium.</div>
+		<div>안녕하세요</div>
 
 </body>
 </html>

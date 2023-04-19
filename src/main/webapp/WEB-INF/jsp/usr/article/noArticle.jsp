@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>해당 게시글은 존재하지 않습니다.</title>
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="resource/common.js" defer="defer"></script>
 </head>
 <body>
 <p>해당 게시글은 존재하지 않습니다.</p>

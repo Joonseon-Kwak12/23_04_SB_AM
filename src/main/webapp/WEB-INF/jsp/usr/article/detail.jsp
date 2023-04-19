@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 보기</title>
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="resource/common.js" defer="defer"></script>
 <style>
 	.tac {
 		text-align: center;

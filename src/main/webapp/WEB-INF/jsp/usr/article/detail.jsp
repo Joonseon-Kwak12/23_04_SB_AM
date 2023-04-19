@@ -1,24 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="ARTICLE LIST" />
+<%@ include file="../common/head.jspf"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>게시글 보기</title>
-<link rel="stylesheet" href="/resource/common.css" />
-<script src="resource/common.js" defer="defer"></script>
-<style>
-	.tac {
-		text-align: center;
-	}
-	header {
-		display: flex;
-		justify-content: space-around;
-	}
-</style>
-</head>
-<body>
+
+<hr />
 <header>
 	<h2 class=tac>${article.title }</h2>
 </header>
@@ -33,5 +19,6 @@
 		${article.body }
 	</article>
 </section>
-</body>
-</html>
+
+
+<%@ include file="../common/foot.jspf"%>

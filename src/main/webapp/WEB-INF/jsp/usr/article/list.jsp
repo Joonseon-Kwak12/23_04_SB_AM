@@ -1,31 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="ARTICLE LIST" />
+<%@ include file="../common/head.jspf"%>
 
-<c:set var="pageTitle" value    />
 
-
-		<hr />
-		<table border="1">
-				<thead>
+<hr />
+<table border="1">
+		<thead>
+				<tr>
+						<th>번호</th>
+						<th>날짜</th>
+						<th>제목</th>
+						<th>작성자</th>
+				</tr>
+		</thead>
+		<tbody>
+				<c:forEach var="article" items="${articles }">
 						<tr>
-								<th>번호</th>
-								<th>날짜</th>
-								<th>제목</th>
-								<th>작성자</th>
+								<td>${article.id }</td>
+								<td>${article.regDate.substring(0,10) }</td>
+								<td>
+										<a href="detail?id=${article.id }">${article.title }</a>
+								</td>
+								<td>${article.memberId }</td>
 						</tr>
-				</thead>
-				<tbody>
-						<c:forEach var="article" items="${articles }">
-								<tr>
-										<td>${article.id }</td>
-										<td>${article.regDate.substring(0,10) }</td>
-										<td>
-												<a href="detail?id=${article.id }">${article.title }</a>
-										</td>
-										<td>${article.memberId }</td>
-								</tr>
-						</c:forEach>
+				</c:forEach>
 
-				</tbody>
+		</tbody>
 
-		</table>
+</table>
+
+
+<%@ include file="../common/foot.jspf"%>

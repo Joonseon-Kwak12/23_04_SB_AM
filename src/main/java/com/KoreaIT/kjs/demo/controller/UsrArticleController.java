@@ -121,11 +121,10 @@ public class UsrArticleController {
 		Article article = articleService.getArticle(id);
 		
 		if (article == null) {
-			ResultData rd = ResultData.from("F-1", Ut.f("%d번 글은 존재하지 않습니다.", id));
-			return "/usr/article/getArticle";
+			return "/usr/article/noArticle";
 		}
 		
-		ResultData rd = ResultData.from("S-1", Ut.f("%d번 게시물입니다.", id), "article", article);
-		return "/usr/article/getArticle";
+		model.addAttribute("article", article);
+		return Ut.f("/usr/article/detail", id);
 	}
 }

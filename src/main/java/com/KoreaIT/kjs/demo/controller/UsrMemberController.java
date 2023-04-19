@@ -63,7 +63,7 @@ public class UsrMemberController {
 		
 		httpSession.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getName()), member);
+		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getName()), "member", member);
 
 	}
 	
@@ -102,7 +102,7 @@ public class UsrMemberController {
 				
 		Member member = memberService.getMemberById(joinRd.getData1());
 
-		return ResultData.newData(joinRd, member);
+		return ResultData.newData(joinRd, "member", member);
 		// 성공했을 때 반환받은 ResultData에는 data1 자리에 회원 id만 들어가 있음,
 		// 회원 객체 전체를 반환해주려고 시도하려면 원래 ResultData 인스턴스 data1 자리에 있는 것을 member로 교체
 		// 위 같은 행위를 해주는 newData 메소드 새로 만들어줬음

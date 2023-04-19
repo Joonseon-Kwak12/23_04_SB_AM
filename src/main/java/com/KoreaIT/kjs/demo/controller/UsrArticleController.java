@@ -104,7 +104,7 @@ public class UsrArticleController {
 	}
 
 	
-	@RequestMapping("/usr/article/getArticles")
+	@RequestMapping("/usr/article/list")
 	public String getArticles(Model model) {
 		
 		List<Article> articles = articleService.getArticles();

@@ -1,3 +1,4 @@
+/* 폰트 적용 */
 @font-face {
 	font-family: 'NanumSquareNeo-Variable';
 	src:
@@ -18,4 +19,12 @@ html>body {
 .articleInfo {
 	display: flex;
 	justify-content: space-around;
+}
+
+
+/* 라이브러리 */
+.table-box-type-1 thead th, .table-box-type-1 td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
 }

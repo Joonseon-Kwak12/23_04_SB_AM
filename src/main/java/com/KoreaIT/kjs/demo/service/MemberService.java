@@ -70,6 +70,7 @@ public class MemberService {
 		session.setAttribute("loginPw", loginPw);
 	}
 	
+	
 //	public int getCountOfLoginId(String loginId) {
 //		return memberRepository.getCountOfLoginId(loginId);
 //	}

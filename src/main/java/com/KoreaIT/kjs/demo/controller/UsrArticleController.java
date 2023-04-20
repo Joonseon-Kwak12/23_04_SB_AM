@@ -22,7 +22,7 @@ public class UsrArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
-
+	
 //	// 생성자
 //	public UsrArticleController(ArticleService articleService) {
 //		// this.usrArticleService = new usrArticleService( ); // new ~()할 필요 없이 @Autowired로 주입 받아서 사용 가능
@@ -115,16 +115,22 @@ public class UsrArticleController {
 	}
 
 	
-	@RequestMapping("/usr/article/getArticle")
-	public String getArticle(int id, Model model) {
+	@RequestMapping("/usr/article/detail")
+	public String showDetail(Model model, int id) {
+//		if (article == null) {
+//			return "/usr/article/noArticle";
+//		}
+//		
+//		model.addAttribute("article", article);
+//		return Ut.f("/usr/article/detail", id);
+		// id 같이 넘겨줄 필요 없음, model만 넘겨주면 됨
 		
 		Article article = articleService.getArticle(id);
-		
-		if (article == null) {
-			return "/usr/article/noArticle";
-		}
+		String nickname = articleService.getMemberNicknameByArticleId(id);
 		
 		model.addAttribute("article", article);
-		return Ut.f("/usr/article/detail", id);
+		model.addAttribute("nickname", nickname);
+		
+		return "usr/article/detail";
 	}
 }

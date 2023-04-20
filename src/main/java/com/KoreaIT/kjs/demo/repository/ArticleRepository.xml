@@ -23,11 +23,9 @@
 	</select>	
 
 	<select id="getArticle" resultType="Article">
-		SELECT a.*, m.nickname
-		FROM article AS a
-		INNER JOIN member AS m
-		ON a.memberId = m.id
-		WHERE a.id = #{id}
+		SELECT *
+		FROM article
+		WHERE id = #{id}
 	</select>
 
 	<delete id="deleteArticle">
@@ -49,4 +47,12 @@
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
+	
+	<select id="getMemberNicknameByArticleId" resultType="String">
+		SELECT nickname
+		FROM `article` as a
+		INNER JOIN `member` as m
+		ON a.memberId = m.id
+		WHERE a.id = #{id}
+	</select>	
 </mapper>

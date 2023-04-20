@@ -14,10 +14,12 @@ public interface ArticleRepository {
 	public List<Article> getArticles();
 
 	public Article getArticle(int id);
-
+	
 	public void deleteArticle(int id);
 
 	public void modifyArticle(int id, String title, String body);
 	
 	public int getLastInsertId();
+	
+	public String getMemberNicknameByArticleId(int id);
 }

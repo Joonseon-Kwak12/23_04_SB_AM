@@ -24,7 +24,7 @@
 <body>
 
 		<header>
-				<div class=" h-20 flex container mx-auto text-4xl">
+				<div class="h-20 flex container mx-auto text-4xl">
 						<a href="#" class=" flex items-center px-3">
 								<span>로고</span>
 						</a>

@@ -16,6 +16,18 @@
 	</insert>
 
 	<select id="getArticles" resultType="Article">
+		SELECT *
+		FROM article
+		ORDER BY id DESC
+	</select>
+
+	<select id="getArticle" resultType="Article">
+		SELECT *
+		FROM article
+		WHERE id = #{id}
+	</select>
+
+	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*, M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN `member` AS M
@@ -23,7 +35,7 @@
 		ORDER BY A.id DESC
 	</select>
 
-	<select id="getArticle" resultType="Article">
+	<select id="getForPrintArticle" resultType="Article">
 		SELECT A.*, M.nickname AS
 		extra__writer
 		FROM article AS A
@@ -52,11 +64,4 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
-<!-- 	<select id="getMemberNicknameByArticleId" resultType="String">
-		SELECT nickname
-		FROM `article` as a
-		INNER JOIN `member` as m
-		ON a.memberId = m.id
-		WHERE a.id = #{id}
-	</select>	 -->
 </mapper>

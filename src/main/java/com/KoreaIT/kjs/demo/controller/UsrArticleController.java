@@ -105,9 +105,9 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model) {
+	public String showList(Model model) {
 		
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getForPrintArticles();
 		
 		model.addAttribute("articles", articles);
 		
@@ -120,12 +120,15 @@ public class UsrArticleController {
 //		if (article == null) {
 //			return "/usr/article/noArticle";
 //		}
-//		
-//		model.addAttribute("article", article);
-//		return Ut.f("/usr/article/detail", id);
-		// id 같이 넘겨줄 필요 없음, model만 넘겨주면 됨
+		boolean isLogined = false;
+		int loginedMemberId = 0;
 		
-		Article article = articleService.getArticle(id);
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);		
 		
 		model.addAttribute("article", article);
 		

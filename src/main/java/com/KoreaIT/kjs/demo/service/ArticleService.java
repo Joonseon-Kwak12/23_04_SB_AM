@@ -28,9 +28,59 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 글이 생성되었습니다.", id), "id", id);
 	}
 
+	public List<Article> getArticles() {
+		
+		return articleRepository.getArticles();
+	}
+	
 	public Article getArticle(int id) {
 
 		return articleRepository.getArticle(id);
+	}
+	
+	public List<Article> getForPrintArticles() {
+		
+		return articleRepository.getForPrintArticles();
+	}
+	
+	public Article getForPrintArticle(int actorId, int id) {
+		
+		Article article = articleRepository.getForPrintArticle(id);
+		
+		controlForPrintData(actorId, article);
+
+		return articleRepository.getForPrintArticle(id);
+	}
+	
+	private void controlForPrintData(int actorId, Article article) {
+		
+		if (article == null) {
+			return;
+		}
+		
+		ResultData actorCanModifyRd = actorCanModify(actorId, article);
+		article.setActorCanModify(actorCanModifyRd.isSuccess());
+		
+		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
+		article.setActorCanDelete(actorCanDeleteRd.isSuccess());
+	}
+	
+	private ResultData actorCanModify(int actorId, Article article) {
+		
+		if (article.getMemberId() != actorId) {
+			return ResultData.from("F-1", "해당 게시물에 대한 권한이 없습니다.");
+		}
+		
+		return ResultData.from("S-1", "삭제 가능");
+	}
+	
+	private ResultData actorCanDelete(int actorId, Article article) {
+	
+		if (article.getMemberId() != actorId) {
+			return ResultData.from("F-1", "해당 게시물에 대한 권한이 없습니다.");
+		}
+		
+		return ResultData.from("S-1", "삭제 가능");
 	}
 
 	public void deleteArticle(int id) {
@@ -53,14 +103,6 @@ public class ArticleService {
 		}
 		return ResultData.from("S-1", "수정 가능");
 	}
-
-	public List<Article> getArticles() {
-		
-		return articleRepository.getArticles();
-	}
 	
-//	public String getMemberNicknameByArticleId(int id) {
-//		return articleRepository.getMemberNicknameByArticleId(id);
-//	}
 
 }

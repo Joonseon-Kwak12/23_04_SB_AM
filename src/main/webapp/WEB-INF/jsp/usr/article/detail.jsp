@@ -13,9 +13,7 @@
 		<div>수정일: ${article.updateDate }</div>
 		<div>작성자: ${article.memberId }</div>
 	</header>
-	<article>
-		${article.body }
-	</article>
+	<article>${article.body }</article>
 </section>
 
 <section class="mt-8 text-xl">
@@ -57,9 +55,14 @@
 		</div>
 		<div class="btns">
 			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-			<button class="btn-text-link" type="button" onclick="location.href = '../article/doModify?id=${article.id}'">수정</button>
-			<button class="btn-text-link" type="button"
-			onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false; location.href = '../article/doDelete?id=${article.id}'">삭제</button>
+			<c:if test="${article.actorCanModify }">
+				<button class="btn-text-link" type="button"
+				onclick="location.href = '../article/doModify?id=${article.id}'">수정</button>
+			</c:if>
+			<c:if test="${article.actorCanDelete }">
+				<button class="btn-text-link" type="button"
+					onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false; location.href = '../article/doDelete?id=${article.id}'">삭제</button>
+			</c:if>
 		</div>
 	</div>
 </section>

@@ -126,10 +126,8 @@ public class UsrArticleController {
 		// id 같이 넘겨줄 필요 없음, model만 넘겨주면 됨
 		
 		Article article = articleService.getArticle(id);
-		String nickname = articleService.getMemberNicknameByArticleId(id);
 		
 		model.addAttribute("article", article);
-		model.addAttribute("nickname", nickname);
 		
 		return "usr/article/detail";
 	}

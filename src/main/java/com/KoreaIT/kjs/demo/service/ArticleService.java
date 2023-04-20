@@ -59,8 +59,8 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 	
-	public String getMemberNicknameByArticleId(int id) {
-		return articleRepository.getMemberNicknameByArticleId(id);
-	}
+//	public String getMemberNicknameByArticleId(int id) {
+//		return articleRepository.getMemberNicknameByArticleId(id);
+//	}
 
 }

@@ -21,5 +21,5 @@ public interface ArticleRepository {
 	
 	public int getLastInsertId();
 	
-	public String getMemberNicknameByArticleId(int id);
+//	public String getMemberNicknameByArticleId(int id);
 }

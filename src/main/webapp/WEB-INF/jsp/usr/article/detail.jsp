@@ -56,8 +56,10 @@
 			</table>
 		</div>
 		<div class="btns">
-			<button type="button" onclick="history.back();">뒤로가기</button>
-			<button type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn-text-link" type="button" onclick="location.href = '../article/doModify?id=${article.id}'">수정</button>
+			<button class="btn-text-link" type="button"
+			onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false; location.href = '../article/doDelete?id=${article.id}'">삭제</button>
 		</div>
 	</div>
 </section>

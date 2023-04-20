@@ -31,7 +31,7 @@ public class UsrArticleController {
 	// 액션 메서드
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Integer> doModify(HttpSession httpSession, int id, String title, String body) {
+	public ResultData<Integer> doModify(HttpSession httpSession, Model model, int id, String title, String body) {
 		
 		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 
@@ -116,7 +116,7 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpSession httpSession, Model model, int id) {
 //		if (article == null) {
 //			return "/usr/article/noArticle";
 //		}

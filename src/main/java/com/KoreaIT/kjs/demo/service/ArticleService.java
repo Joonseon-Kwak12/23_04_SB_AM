@@ -49,7 +49,7 @@ public class ArticleService {
 		
 		controlForPrintData(actorId, article);
 
-		return articleRepository.getForPrintArticle(id);
+		return article;
 	}
 	
 	private void controlForPrintData(int actorId, Article article) {
@@ -65,13 +65,13 @@ public class ArticleService {
 		article.setActorCanDelete(actorCanDeleteRd.isSuccess());
 	}
 	
-	private ResultData actorCanModify(int actorId, Article article) {
+	public ResultData actorCanModify(int actorId, Article article) {
 		
 		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-1", "해당 게시물에 대한 권한이 없습니다.");
 		}
 		
-		return ResultData.from("S-1", "삭제 가능");
+		return ResultData.from("S-1", "수정 가능");
 	}
 	
 	private ResultData actorCanDelete(int actorId, Article article) {
@@ -97,12 +97,4 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 글을 수정했습니다.", id), "article", article);
 	}
 	
-	public ResultData actorCanModify(Integer memberId, Article article) {
-		if (article.getMemberId() != memberId) {
-			return ResultData.from("F-2", "해당 글에 대한 권한이 없습니다.");
-		}
-		return ResultData.from("S-1", "수정 가능");
-	}
-	
-
 }

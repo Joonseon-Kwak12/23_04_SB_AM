@@ -1,7 +1,12 @@
 package com.KoreaIT.kjs.demo.vo;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.KoreaIT.kjs.demo.util.Ut;
 
 import lombok.Getter;
 
@@ -11,8 +16,13 @@ public class Rq {
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
+	private HttpServletRequest req;
+	private HttpServletResponse resp;
 	
-	public Rq(HttpServletRequest req) {
+	public Rq(HttpServletRequest req, HttpServletResponse resp) {
+		this.req = req;
+		this.resp = resp;
+		
 		HttpSession httpSession = req.getSession();
 		boolean isLogined = false;
 		int loginedMemberId = 0;
@@ -25,4 +35,26 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 	}
+
+	public void printHistoryBackJS(String msg) throws IOException {
+		resp.setContentType("text/html; charset=UTF-8"); // 한글 인식
+		println("<script>");
+		if (!Ut.empty(msg)) {
+			print("alert('" + msg + "');");
+		}
+		println("history.back();");
+		println("</script>");
+	}
+
+	public void print(String str) {
+		try {
+			resp.getWriter().append(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void println(String str) {
+		print(str + "\n");
+	}
+
 }

@@ -33,7 +33,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData<Integer> doModify(HttpServletRequest req, Model model, int id, String title, String body) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 //		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 
@@ -59,8 +59,8 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
-		Rq rq = new Rq(req);
-
+		Rq rq = (Rq) req.getAttribute("rq");
+		
 //		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 
 		if (rq.isLogined() == false) {
@@ -84,7 +84,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 //		Integer loginedMemberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
@@ -121,7 +121,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);		
 		

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.KoreaIT.kjs.demo.vo.Rq;
+
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor{
 
@@ -13,7 +15,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
 		
-		System.out.println("==========실행됨??=============\n\n\n\n==========실행됨??=============");
+		Rq rq = new Rq(req);
+		req.setAttribute("rq", rq);
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}

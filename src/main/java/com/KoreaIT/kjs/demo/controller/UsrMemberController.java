@@ -1,5 +1,6 @@
 package com.KoreaIT.kjs.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.KoreaIT.kjs.demo.service.MemberService;
 import com.KoreaIT.kjs.demo.util.Ut;
 import com.KoreaIT.kjs.demo.vo.Member;
 import com.KoreaIT.kjs.demo.vo.ResultData;
+import com.KoreaIT.kjs.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -20,15 +22,17 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession httpSession) {
+	public String doLogout(HttpServletRequest req) {
 		
-		if (httpSession.getAttribute("loginedMemberId") == null) {
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		if (!rq.isLogined()) {
 			return Ut.jsHistoryBack("F-1", "이미 로그아웃 상태입니다.");
 		}
 		
-		httpSession.removeAttribute("loginedMemberId");
+		rq.logout();
 		
-		return Ut.jsReplace("S-1", "로그아웃 성공", "/");
+		return Ut.jsReplace("S-1", "로그아웃 되었습니다.", "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
@@ -40,14 +44,11 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) throws Exception {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) throws Exception {
 		
-		boolean isLogined = false;
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if (isLogined) {
+		if (rq.isLogined()) {
 			return Ut.jsHistoryBack("F-5", "이미 로그인 상태입니다.");
 		}
 		
@@ -68,7 +69,7 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다.", loginId));
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());		
+		rq.login(member);
 		
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), "/");
 	}

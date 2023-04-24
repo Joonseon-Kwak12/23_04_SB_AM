@@ -83,9 +83,9 @@ public class Rq {
 		return Ut.jsHistoryBack(resultCode, msg);
 	}
 
-	public String jsReplace(String resultCode, String msg) {
+	public String jsReplace(String msg, String uri) {
 		
-		return Ut.jsReplace(resultCode, msg);
+		return Ut.jsReplace(msg, uri);
 	}
 
 }

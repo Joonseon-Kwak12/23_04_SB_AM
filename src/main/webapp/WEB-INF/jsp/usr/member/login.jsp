@@ -30,8 +30,9 @@
 </script> -->
 
 <div class="m-auto p-6 w-[300px] bg-[#3B5998] rounded text-center">
-  <!-- onsubmit 필요 없음 <form method="post" action="doLogin" onsubmit="LoginForm__submit(this); return false;" class="flex flex-col items-center gap-3"> -->
-  <form method="post" action="doLogin" onsubmit="LoginForm__submit(this); return false;" class="flex flex-col items-center gap-3">
+  <!-- form의 att로 onsubmit 필요 없음 onsubmit="LoginForm__submit(this); return false;" -->
+  <form method="post" action="doLogin" class="flex flex-col items-center gap-3">
+  
     <input type="text" placeholder="아이디를 입력해주세요." name="loginId" class="rounded w-full"/>
     <input type="text" placeholder="비밀번호를 입력해주세요." name="loginPw" class="rounded w-full"/>
     <button type="submit" class="w-24 h-6 bg-white text-sm rounded">로그인</button>

@@ -1,5 +1,7 @@
 package com.KoreaIT.kjs.demo.util;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Ut {
 
 	public static boolean empty(Object obj) {
@@ -38,7 +40,7 @@ public class Ut {
 				</script>
 				""", msg);
 	}
-
+	
 	public static String jsReplace(String resultCode, String msg, String uri) {
 		if (msg == null) {
 			msg = "";

@@ -70,4 +70,12 @@ public class Rq {
 		session.removeAttribute("loginedMemberId");
 	}
 
+	public String jsHistoryBackOnView(String msg) {
+		
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		
+		return "usr/common/js";
+	}
+
 }

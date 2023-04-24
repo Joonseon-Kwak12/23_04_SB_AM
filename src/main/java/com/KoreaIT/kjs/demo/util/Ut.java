@@ -1,7 +1,5 @@
 package com.KoreaIT.kjs.demo.util;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class Ut {
 
 	public static boolean empty(Object obj) {
@@ -9,7 +7,7 @@ public class Ut {
 		if (obj == null) {
 			return true;
 		}
-		if (obj instanceof String == false) {
+		if (obj instanceof String == true) {
 			String str = (String) obj;
 			return str.trim().length() == 0;
 		}

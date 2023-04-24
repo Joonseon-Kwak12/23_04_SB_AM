@@ -77,5 +77,15 @@ public class Rq {
 		
 		return "usr/common/js";
 	}
+	
+	public String jsHistoryBack(String resultCode, String msg) {
+		
+		return Ut.jsHistoryBack(resultCode, msg);
+	}
+
+	public String jsReplace(String resultCode, String msg) {
+		
+		return Ut.jsReplace(resultCode, msg);
+	}
 
 }

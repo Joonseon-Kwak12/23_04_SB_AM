@@ -35,9 +35,9 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-
 			</table>
 		</div>
+		<a href="/usr/article/write" class="block w-24 h-6 bg-black text-white text-sm text-center rounded">글쓰기</a>
 	</div>
 </section>
 

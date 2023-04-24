@@ -30,7 +30,7 @@ public class UsrArticleController {
 //	}
  
 	// 액션 메서드
-	@RequestMapping("/usr/article/modify")
+	@RequestMapping("/usr/article/modify") //@RequestBody 없음
 	public String showModify(HttpServletRequest req, Model model, int id) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -48,31 +48,33 @@ public class UsrArticleController {
 			return rq.jsHistoryBackOnView(actorCanModifyRd.getMsg());
 		}
 		
+		model.addAttribute("article", article);
+		
 		return "usr/article/modify";
 	}
 	
 	
-	@RequestMapping("/usr/article/doModify")
+	@RequestMapping("/usr/article/doModify") //@RequestBody 있음, replace로 보냄
 	@ResponseBody
-	public String doModify(HttpServletRequest req, Model model, int id, String title, String body) {
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 //		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 
 		Article article = articleService.getArticle(id);
 		if (article == null) {
-			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글은 존재하지 않습니다.", id));
+			return rq.jsHistoryBack("F-1", Ut.f("%d번 글은 존재하지 않습니다....", id));
 		}
 		
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 		
 		if (actorCanModifyRd.isFail()) {
-			return Ut.jsHistoryBack(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
+			return rq.jsHistoryBack(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
 		}
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return Ut.jsReplace(Ut.f("%d번 글을 수정했습니다.", id), "/");
+		return rq.jsReplace(Ut.f("%d번 글을 수정했습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	
@@ -97,26 +99,30 @@ public class UsrArticleController {
 	}
 
 	
+	@RequestMapping("/usr/article/write")
+	public String showWrite(HttpServletRequest req) {
+		return "usr/article/write";
+	}
+	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 //		Integer loginedMemberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
 		if (Ut.empty(title)) {
-			return ResultData.from("F-1", "제목을 입력해주세요.");
+			return rq.jsHistoryBack("F-1", "제목을 입력해주세요.");
 		}
-		if (Ut.empty(title)) {
-			return ResultData.from("F-2", "내용을 입력해주세요.");
+		if (Ut.empty(body)) {
+			return rq.jsHistoryBack("F-2", "내용을 입력해주세요.");
 		}
 		
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		
 		int id = (int) writeArticleRd.getData1();
-		Article article = articleService.getArticle(id);
 		
-		return ResultData.newData(writeArticleRd, "article", article);
+		return rq.jsReplace(Ut.f("%d번 글을 작성했습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	

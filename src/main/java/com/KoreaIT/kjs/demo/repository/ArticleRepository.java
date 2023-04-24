@@ -15,8 +15,8 @@ public interface ArticleRepository {
 
 	public Article getArticle(int id);
 	
-	public List<Article> getForPrintArticles();
-
+	public List<Article> getForPrintArticles(Integer boardId);
+	
 	public Article getForPrintArticle(int id);
 	
 	public void deleteArticle(int id);
@@ -24,5 +24,6 @@ public interface ArticleRepository {
 	public void modifyArticle(int id, String title, String body);
 	
 	public int getLastInsertId();
+
 
 }

@@ -38,9 +38,10 @@ public class ArticleService {
 		return articleRepository.getArticle(id);
 	}
 	
-	public List<Article> getForPrintArticles() {
+
+	public List<Article> getForPrintArticles(Integer boardId) {
 		
-		return articleRepository.getForPrintArticles();
+		return articleRepository.getForPrintArticles(boardId);
 	}
 	
 	public Article getForPrintArticle(int actorId, int id) {

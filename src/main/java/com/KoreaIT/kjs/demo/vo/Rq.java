@@ -22,27 +22,35 @@ public class Rq {
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
+	@Getter
+	private Member loginedMember;
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
+	//public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
 		
 		this.session = req.getSession();
 		boolean isLogined = false;
 		int loginedMemberId = 0;
+		Member loginedMember = null;
 		
 		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			loginedMember = (Member) session.getAttribute("loginedMember");
+			// loginedMember = memberService.getMemberById(loginedMemberId);
+			// session에 loginedMember를 저장하는 게 나은가 아니면 memberService를 끌고 오는 게 나은가?
 			
 			this.req.setAttribute("rq", this);
 		}
 		
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
+		this.loginedMember = loginedMember;
 	}
 
 	public void printHistoryBackJS(String msg) throws IOException {
@@ -71,6 +79,7 @@ public class Rq {
 	public void login(Member member) {
 		//isLogined 안 바꿔줘도 되나??
 		session.setAttribute("loginedMemberId", member.getId());
+		session.setAttribute("loginedMember", member);
 	}
 
 	public void logout() {

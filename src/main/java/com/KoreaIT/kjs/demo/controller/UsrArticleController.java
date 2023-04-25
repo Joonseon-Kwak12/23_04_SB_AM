@@ -2,8 +2,6 @@ package com.KoreaIT.kjs.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,7 +108,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body) {
+	public String doWrite(String title, String stringBoardId, String body) {
 		
 //		Integer loginedMemberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
@@ -120,8 +118,12 @@ public class UsrArticleController {
 		if (Ut.empty(body)) {
 			return rq.jsHistoryBack("F-2", "내용을 입력해주세요.");
 		}
+		if (Ut.empty(stringBoardId)) {
+			return rq.jsHistoryBack("F-3", "게시판을 선택해주세요.");
+		}
 		
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		int boardId = Integer.parseInt(stringBoardId);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body, boardId);
 		
 		int id = (int) writeArticleRd.getData1();
 		
@@ -132,33 +134,47 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, Integer boardId, Integer page) {
 
-		int articlePerPage;
-		articlePerPage = 10;
+		int articlesPerPage;
+		articlesPerPage = 10;
 		
 		if (page == null) {
 			page = 1;
 		}
 		
-		if (boardId == null) {
-			List<Article> articles = articleService.getForPrintArticles(boardId);
+//		if (boardId == null) {
+//			List<Article> articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+//			
+//			model.addAttribute("articles", articles);
+//			model.addAttribute("page", page);
+//			
+//			return "usr/article/list";
+//		}
+		Board board = null;
+		
+		if (boardId != null) {
+			board = boardService.getBoardById(boardId);
 			
-			model.addAttribute("articles", articles);
-			
-			return "usr/article/list";
+			if (board == null) {
+				return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
+			}
+		}		
+				
+		int articlesCount = 0;
+		List<Article> articles = null;
+		
+		if (boardId != null) {
+			articlesCount = articleService.getArticlesCount(boardId);
+			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+			model.addAttribute("board", board);
+		} else {
+			articlesCount = articleService.getArticlesCount();
+			articles = articleService.getForPrintArticles(page, articlesPerPage);
+			model.addAttribute("board", "전체");
 		}
 		
-		Board board = boardService.getBoardById(boardId);
-		
-		if (board == null) {
-			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
-		}
-		
-		int articlesCount = articleService.getArticlesCount(boardId);
-		List<Article> articles = articleService.getForPrintArticles(boardId);
-		
-		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
+		model.addAttribute("page", page);
 		
 		return "usr/article/list";
 	}

@@ -11,6 +11,7 @@
 		SET regDate = NOW(),
 		updateDate = NOW(),
 		memberId = #{memberId},
+		boardId = #{boardId},
 		title =#{title},
 		`body`= #{body}
 	</insert>
@@ -36,6 +37,7 @@
 			WHERE A.boardId = #{boardId}
 		</if>
 		ORDER BY A.id DESC
+		LIMIT #{articleFrom}, #{articlesPerPage}
 	</select>
 
 	<select id="getForPrintArticle" resultType="Article">

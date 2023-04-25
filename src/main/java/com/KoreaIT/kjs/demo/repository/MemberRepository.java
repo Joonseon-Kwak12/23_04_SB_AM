@@ -31,4 +31,6 @@ public interface MemberRepository {
 			AND email = #{email}
 			""")
 	public Member getMemberByNameAndEmail(String name, String email);
+	
+	
 }

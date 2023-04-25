@@ -6,10 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.KoreaIT.kjs.demo.util.Ut;
 
 import lombok.Getter;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
 
 	@Getter
@@ -31,6 +37,8 @@ public class Rq {
 		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			
+			this.req.setAttribute("rq", this);
 		}
 		
 		this.isLogined = isLogined;
@@ -86,6 +94,10 @@ public class Rq {
 	public String jsReplace(String msg, String uri) {
 		
 		return Ut.jsReplace(msg, uri);
+	}
+
+	public void initOnbeforeActionInterceptor() {
+		
 	}
 
 }

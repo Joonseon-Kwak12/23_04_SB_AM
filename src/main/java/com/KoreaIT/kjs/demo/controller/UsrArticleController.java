@@ -25,9 +25,11 @@ public class UsrArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
-	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private Rq rq;
+	
 	
 //	// 생성자
 //	public UsrArticleController(ArticleService articleService) {
@@ -36,9 +38,7 @@ public class UsrArticleController {
  
 	// 액션 메서드
 	@RequestMapping("/usr/article/modify") //@RequestBody 없음
-	public String showModify(HttpServletRequest req, Model model, int id) {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showModify(Model model, int id) {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		//getForPrintArticle 과정에 actorCanModify 포함되어 있음
@@ -61,8 +61,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doModify") //@RequestBody 있음, replace로 보냄
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doModify(int id, String title, String body) {
 		
 //		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 
@@ -85,8 +84,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpServletRequest req, int id) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doDelete(int id) {
 		
 //		Integer memberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
@@ -105,14 +103,14 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite(HttpServletRequest req) {
+	public String showWrite() {
+		
 		return "usr/article/write";
 	}
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doWrite(String title, String body) {
 		
 //		Integer loginedMemberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
@@ -132,10 +130,8 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model, Integer boardId, Integer page) {
+	public String showList(Model model, Integer boardId, Integer page) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		int articlePerPage;
 		articlePerPage = 10;
 		
@@ -169,8 +165,7 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showDetail(Model model, int id) {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);		
 		

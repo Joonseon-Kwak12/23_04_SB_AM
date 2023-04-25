@@ -19,12 +19,12 @@ public class UsrMemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private Rq rq;
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout() {
 		
 		if (!rq.isLogined()) {
 			return Ut.jsHistoryBack("F-1", "이미 로그아웃 상태입니다.");
@@ -36,17 +36,14 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String login(HttpSession httpSession, String loginId, String loginPw) {
+	public String login() {
 		
 		return "usr/member/login";
-
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) throws Exception {
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogin(String loginId, String loginPw) throws Exception {
 		
 		if (rq.isLogined()) {
 			return Ut.jsHistoryBack("F-5", "이미 로그인 상태입니다.");

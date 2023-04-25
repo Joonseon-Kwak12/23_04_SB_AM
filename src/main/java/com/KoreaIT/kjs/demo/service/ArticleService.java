@@ -97,5 +97,10 @@ public class ArticleService {
 		
 		return ResultData.from("S-1", Ut.f("%d번 글을 수정했습니다.", id), "article", article);
 	}
+
+	public int getArticlesCount(Integer boardId) {
+		
+		return articleRepository.getArticlesCount(boardId);
+	}
 	
 }

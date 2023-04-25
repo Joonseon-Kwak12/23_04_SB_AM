@@ -108,7 +108,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String stringBoardId, String body) {
+	public String doWrite(String stringBoardId, String title, String body) {
 		
 //		Integer loginedMemberId = (Integer) httpSession.getAttribute("loginedMemberId");
 		
@@ -123,7 +123,7 @@ public class UsrArticleController {
 		}
 		
 		int boardId = Integer.parseInt(stringBoardId);
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body, boardId);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 		
 		int id = (int) writeArticleRd.getData1();
 		

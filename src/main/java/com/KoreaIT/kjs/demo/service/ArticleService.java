@@ -39,12 +39,12 @@ public class ArticleService {
 	}
 	
 
-	public List<Article> getForPrintArticles(Integer page, int articlesPerPage) {
-		
-		int articleFrom = (page - 1) * articlesPerPage;
-		
-		return articleRepository.getForPrintArticles(articleFrom, articlesPerPage);
-	}	
+//	public List<Article> getForPrintArticles(Integer page, int articlesPerPage) {
+//		
+//		int articleFrom = (page - 1) * articlesPerPage;
+//		
+//		return articleRepository.getForPrintArticles(articleFrom, articlesPerPage);
+//	}	
 	
 	public List<Article> getForPrintArticles(Integer boardId, Integer page, int articlesPerPage) {
 		

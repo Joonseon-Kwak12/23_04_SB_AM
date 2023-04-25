@@ -78,7 +78,7 @@
 		</div>
 		<div class="container mx-auto px-3">
 			<c:if test="${rq.isLogined() }">
-			현재 접속 중인 회원 ${rq.getLoginedMember().getNickname() }
+			현재 접속 중인 회원 - ${rq.getLoginedMember().getNickname() }
 			<%-- 					<% HttpServletRequest req;
 						Rq rq = (Rq) req.getAttribute("rq");
 						int loginedMemberId = (int) rq.getLoginedMemberId();

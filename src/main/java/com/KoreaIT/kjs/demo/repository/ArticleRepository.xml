@@ -10,6 +10,8 @@
 		INSERT INTO article
 		SET regDate = NOW(),
 		updateDate = NOW(),
+		memberId = #{memberId},
+		boardId = #{boardId},
 		title =#{title},
 		`body`= #{body}
 	</insert>
@@ -17,15 +19,44 @@
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
-		ORDER BY
-		id DESC
-	</select>	
+		ORDER BY id DESC
+	</select>
 
 	<select id="getArticle" resultType="Article">
 		SELECT *
 		FROM article
-		WHERE id
-		= #{id}
+		WHERE id = #{id}
+	</select>
+
+	<select id="getForPrintAllArticles" resultType="Article">
+		SELECT A.*, M.nickname AS extra__writer
+		FROM article AS A
+		INNER JOIN `member` AS M
+		ON A.memberId = M.id
+		ORDER BY A.id DESC
+		LIMIT #{articleFrom}, #{articlesPerPage}
+	</select>
+
+	<select id="getForPrintArticles" resultType="Article">
+		SELECT A.*, M.nickname AS extra__writer
+		FROM article AS A
+		INNER JOIN
+		`member` AS M
+		ON A.memberId = M.id
+		<if test="boardId != null">
+			WHERE A.boardId = #{boardId}
+		</if>
+		ORDER BY A.id DESC
+		LIMIT #{articleFrom}, #{articlesPerPage}
+	</select>
+
+	<select id="getForPrintArticle" resultType="Article">
+		SELECT A.*, M.nickname AS
+		extra__writer
+		FROM article AS A
+		INNER JOIN `member` AS M
+		ON A.memberId = M.id
+		WHERE A.id = #{id}
 	</select>
 
 	<delete id="deleteArticle">
@@ -47,4 +78,14 @@
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
+
+	<select id="getArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		<if test="boardId != null">
+			WHERE A.boardId = #{boardId}
+		</if>
+	</select>
+	
+	
 </mapper>

@@ -27,4 +27,5 @@
 <!-- 	<select id="getCountOfLoginId" resultType="int">
 		SELECT COUNT(*) FROM `member` WHERE loginId = #{loginId} 
 	</select> -->
+
 </mapper>

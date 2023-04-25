@@ -28,10 +28,20 @@
 		WHERE id = #{id}
 	</select>
 
-	<select id="getForPrintArticles" resultType="Article">
+	<select id="getForPrintAllArticles" resultType="Article">
 		SELECT A.*, M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN `member` AS M
+		ON A.memberId = M.id
+		ORDER BY A.id DESC
+		LIMIT #{articleFrom}, #{articlesPerPage}
+	</select>
+
+	<select id="getForPrintArticles" resultType="Article">
+		SELECT A.*, M.nickname AS extra__writer
+		FROM article AS A
+		INNER JOIN
+		`member` AS M
 		ON A.memberId = M.id
 		<if test="boardId != null">
 			WHERE A.boardId = #{boardId}
@@ -72,7 +82,7 @@
 	<select id="getArticlesCount" resultType="int">
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
-		<if test="boardId != 0">
+		<if test="boardId != null">
 			WHERE A.boardId = #{boardId}
 		</if>
 	</select>

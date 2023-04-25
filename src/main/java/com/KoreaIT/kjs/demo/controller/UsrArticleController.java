@@ -133,67 +133,66 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, @RequestParam(defaultValue = "1")Integer boardId, @RequestParam(defaultValue = "1")Integer page) {
-//	public String showList(Model model, Integer boardId, Integer page) {
+	public String showList(Model model, Integer boardId, Integer page) {
+//	public String showList(Model model, @RequestParam(defaultValue = "1")Integer boardId, @RequestParam(defaultValue = "1")Integer page) {
 
-//		int articlesPerPage;
-//		articlesPerPage = 10;
-//		
-//		if (page == null) {
-//			page = 1;
-//		}
-//		
-////		if (boardId == null) {
-////			List<Article> articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
-////			
-////			model.addAttribute("articles", articles);
-////			model.addAttribute("page", page);
-////			
-////			return "usr/article/list";
-////		}
-//		Board board = null;
-//		
-//		if (boardId != null) {
-//			board = boardService.getBoardById(boardId);
-//			
-//			if (board == null) {
-//				return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
-//			}
-//		}		
-//				
-//		int articlesCount = 0;
-//		List<Article> articles = null;
-//		
-//		if (boardId != null) {
-//			articlesCount = articleService.getArticlesCount(boardId);
-//			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
-//			model.addAttribute("board", board);
-//		} else {
-//			articlesCount = articleService.getArticlesCount();
-//			articles = articleService.getForPrintArticles(page, articlesPerPage);
-//			model.addAttribute("board", "전체");
-//		}
-//		
-//		model.addAttribute("articlesCount", articlesCount);
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("page", page);
-//		
-//		return "usr/article/list";
-		
 		int articlesPerPage;
 		articlesPerPage = 10;
 		
-		Board board = boardService.getBoardById(boardId);
-
-		int articlesCount = articleService.getArticlesCount(boardId);
-		List<Article> articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
-		model.addAttribute("board", board);
-
+		if (page == null) {
+			page = 1;
+		}
+		
+//		if (boardId == null) {
+//			List<Article> articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+//			
+//			model.addAttribute("articles", articles);
+//			model.addAttribute("page", page);
+//			
+//			return "usr/article/list";
+//		}
+		Board board = null;
+		
+		if (boardId != null) {
+			board = boardService.getBoardById(boardId);
+			
+			if (board == null) {
+				return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
+			}
+		}		
+				
+		int articlesCount = 0;
+		List<Article> articles = null;
+		
+		if (boardId != null) {
+			articlesCount = articleService.getArticlesCount(boardId);
+			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+			model.addAttribute("board", board);
+		} else {
+			articlesCount = articleService.getArticlesCount();
+			articles = articleService.getForPrintAllArticles(page, articlesPerPage);
+		}
+		
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 		model.addAttribute("page", page);
-
+		
 		return "usr/article/list";
+		
+//		int articlesPerPage;
+//		articlesPerPage = 10;
+//		
+//		Board board = boardService.getBoardById(boardId);
+//
+//		int articlesCount = articleService.getArticlesCount(boardId);
+//		List<Article> articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+//		model.addAttribute("board", board);
+//
+//		model.addAttribute("articlesCount", articlesCount);
+//		model.addAttribute("articles", articles);
+//		model.addAttribute("page", page);
+//
+//		return "usr/article/list";
 	}
 
 	

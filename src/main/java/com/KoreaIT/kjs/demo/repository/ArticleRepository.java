@@ -15,7 +15,7 @@ public interface ArticleRepository {
 
 	public Article getArticle(int id);
 	
-//	public List<Article> getForPrintArticles(int articleFrom, int articlesPerPage);
+	public List<Article> getForPrintAllArticles(int articleFrom, int articlesPerPage);
 	
 	public List<Article> getForPrintArticles(Integer boardId, int articleFrom, int articlesPerPage);
 	

@@ -14,7 +14,7 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box">
-			<div>${articlesCount }개</div>
+			<div>게시물 개수: ${articlesCount }개</div>
 
 			<ul class="w-10/12 mx-auto">
 				<li class="border-solid border-y-[1px] border-slate-400 border-collapse">
@@ -78,12 +78,12 @@
 				<form action="list">
 					<input type="hidden" name="boardId" value="${boardId }" />
 					검색 조건 선택
-					<select name="searchKeywordTypeCode" class="rounded <w-24></w-24>">
+					<select data-value="${param.searchKeywordTypeCode }" name="searchKeywordTypeCode" class="rounded <w-24></w-24>">
 						<option value="title">제목</option>
 						<option value="body">내용</option>
 						<option value="title,body">제목+내용</option>
 					</select>
-					<input type="text" name="searchKeyword" class="rounded w-full" placeholder="검색어를 입력해주세요" />
+					<input value="${param.searchKeyword }" maxlength="20" type="text" name="searchKeyword" class="rounded w-full" placeholder="검색어를 입력해주세요" />
 					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded" >검색</button>
 				</form>
 			</div>

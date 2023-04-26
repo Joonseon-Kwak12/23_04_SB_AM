@@ -133,7 +133,7 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, Integer boardId, Integer page, String searchKeyword) {
+	public String showList(Model model, Integer boardId, Integer page, @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode, String searchKeyword) {
 //	public String showList(Model model, @RequestParam(defaultValue = "1")Integer boardId, @RequestParam(defaultValue = "1")Integer page) {
 
 		int articlesPerPage;
@@ -165,13 +165,13 @@ public class UsrArticleController {
 		List<Article> articles = null;
 		
 		if (boardId != null) {
-			articlesCount = articleService.getArticlesCount(boardId, searchKeyword);
-			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage, searchKeyword);
+			articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
+			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 			model.addAttribute("board", board);
 			model.addAttribute("boardId", boardId);			
 		} else {
-			articlesCount = articleService.getArticlesCount(searchKeyword);
-			articles = articleService.getForPrintAllArticles(page, articlesPerPage, searchKeyword);
+			articlesCount = articleService.getArticlesCount(searchKeywordTypeCode, searchKeyword);
+			articles = articleService.getForPrintAllArticles(page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 		}
 		
 		int pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
@@ -185,6 +185,7 @@ public class UsrArticleController {
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("hitCount", endPage);
 		
 		return "usr/article/list";
 		
@@ -208,7 +209,9 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		
-		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);		
+		articleService.increaseHitCount(id);
+		
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		model.addAttribute("article", article);
 		

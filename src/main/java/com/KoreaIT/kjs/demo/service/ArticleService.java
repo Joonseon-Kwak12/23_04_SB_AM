@@ -39,18 +39,28 @@ public class ArticleService {
 	}
 	
 
-	public List<Article> getForPrintAllArticles(Integer page, int articlesPerPage, String searchKeyword) {
+	public List<Article> getForPrintAllArticles(Integer page, int articlesPerPage, String searchKeywordTypeCode, String searchKeyword) {
 		
 		int articleFrom = (page - 1) * articlesPerPage;
 		
-		return articleRepository.getForPrintAllArticles(articleFrom, articlesPerPage, searchKeyword);
+		return articleRepository.getForPrintAllArticles(articleFrom, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 	}	
 	
-	public List<Article> getForPrintArticles(Integer boardId, Integer page, int articlesPerPage, String searchKeyword) {
+	public List<Article> getForPrintArticles(Integer boardId, Integer page, int articlesPerPage, String searchKeywordTypeCode, String searchKeyword) {
 		
 		int articleFrom = (page - 1) * articlesPerPage;
 		
-		return articleRepository.getForPrintArticles(boardId, articleFrom, articlesPerPage, searchKeyword);
+		return articleRepository.getForPrintArticles(boardId, articleFrom, articlesPerPage, searchKeywordTypeCode, searchKeyword);
+	}
+	
+	public int getArticlesCount(String searchKeywordTypeCode, String searchKeyword) {
+		
+		return articleRepository.getAllArticlesCount(searchKeywordTypeCode, searchKeyword);
+	}
+	
+	public int getArticlesCount(Integer boardId, String searchKeywordTypeCode, String searchKeyword) {
+		
+		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 	
 	public Article getForPrintArticle(int actorId, int id) {
@@ -107,14 +117,10 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 글을 수정했습니다.", id), "article", article);
 	}
 
-	public int getArticlesCount(String searchKeyword) {
+	public void increaseHitCount(int id) {
 		
-		return articleRepository.getAllArticlesCount(searchKeyword);
-	}
-	
-	public int getArticlesCount(Integer boardId, String searchKeyword) {
+		articleRepository.increaseHitCount(id);
 		
-		return articleRepository.getArticlesCount(boardId, searchKeyword);
 	}
 	
 }

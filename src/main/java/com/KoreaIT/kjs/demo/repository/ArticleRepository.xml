@@ -63,6 +63,23 @@
 		ON A.memberId = M.id
 		WHERE A.id = #{id}
 	</select>
+	
+	<select id="getAllArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		<if test="searchKeyword != null">
+			WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+	</select>
+
+	<select id="getArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		<if test="searchKeyword != null">
+			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+	</select>
 
 	<delete id="deleteArticle">
 		DELETE FROM
@@ -84,21 +101,10 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 
-	<select id="getAllArticlesCount" resultType="int">
-		SELECT COUNT(*) AS cnt
-		FROM article AS A
-		<if test="searchKeyword != null">
-			WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-	</select>
-
-	<select id="getArticlesCount" resultType="int">
-		SELECT COUNT(*) AS cnt
-		FROM article AS A
-		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != null">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-	</select>
+	<update id="increaseHitCount">
+		UPDATE article
+		SET hitCount = hitCount + 1
+		WHERE id = #{id}
+	</update>
 	
 </mapper>

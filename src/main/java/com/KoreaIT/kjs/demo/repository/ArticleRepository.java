@@ -15,9 +15,13 @@ public interface ArticleRepository {
 
 	public Article getArticle(int id);
 	
-	public List<Article> getForPrintAllArticles(int articleFrom, int articlesPerPage, String searchKeyword);
+	public List<Article> getForPrintAllArticles(int articleFrom, int articlesPerPage, String searchKeywordTypeCode, String searchKeyword);
 	
-	public List<Article> getForPrintArticles(Integer boardId, int articleFrom, int articlesPerPage, String searchKeyword);
+	public List<Article> getForPrintArticles(Integer boardId, int articleFrom, int articlesPerPage, String searchKeywordTypeCode, String searchKeyword);
+	
+	public int getAllArticlesCount(String searchKeywordTypeCode,String searchKeyword);
+	
+	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 	
 	public Article getForPrintArticle(int id);
 	
@@ -26,10 +30,7 @@ public interface ArticleRepository {
 	public void modifyArticle(int id, String title, String body);
 	
 	public int getLastInsertId();
-	
-	public int getAllArticlesCount(String searchKeyword);
-	
-	public int getArticlesCount(int boardId, String searchKeyword);
 
-
+	public void increaseHitCount(int id);
+	
 }

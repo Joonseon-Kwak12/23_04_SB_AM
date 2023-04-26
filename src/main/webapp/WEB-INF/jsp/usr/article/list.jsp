@@ -46,7 +46,21 @@
 		<div> <!-- 게시판 바깥 공간 시작-->
 		
 			<div class="flex"> <!-- 페이지네이션 시작 -->
-				<c:choose>
+				<c:if test="${boardId != null}">
+					<c:set var="addUriCondition" value="&boardId=${boardId }" />
+				</c:if>
+				<c:if test="${searchKeywordTypeCode != null}">
+					<c:set var="addUriCondition" value="${addUriCondition }&searchKeywordTypeCode=${searchKeywordTypeCode }" />
+				</c:if>
+				<c:if test="${searchKeyword != null}">
+					<c:set var="addUriCondition" value="${addUriCondition }&searchKeyword=${searchKeyword }" />
+				</c:if>
+
+				<c:forEach begin="${startPage }" end="${endPage }" var="i">
+					<a ${page==i ? 'class="text-pink-700"':'' } href="?page=${i }${addUriCondition }">${i }</a>
+				</c:forEach>
+
+<%-- 				<c:choose>
 					<c:when test="${boardId != null}">
 						<c:forEach begin="${startPage }" end="${endPage }" var="i">
 							<a ${page==i ? 'class="text-pink-700"':'' } href="?boardId=${boardId }&page=${i }">${i }</a>
@@ -57,7 +71,7 @@
 							<a ${page==i ? 'class="text-pink-700"':'' } href="?page=${i }">${i }</a>
 						</c:forEach>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
 			</div> <!-- 페이지네이션 끝 -->
 			
 			<div>
@@ -69,8 +83,8 @@
 						<option value="body">내용</option>
 						<option value="title,body">제목+내용</option>
 					</select>
-					<input type="text" name="searchKeyword" class="rounded w-full" />
-					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">검색</button>
+					<input type="text" name="searchKeyword" class="rounded w-full" placeholder="검색어를 입력해주세요" />
+					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded" >검색</button>
 				</form>
 			</div>
 			

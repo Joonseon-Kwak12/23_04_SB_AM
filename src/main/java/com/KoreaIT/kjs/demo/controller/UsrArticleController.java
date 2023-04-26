@@ -133,7 +133,7 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, Integer boardId, Integer page, @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode, String searchKeyword) {
+	public String showList(Model model, Integer boardId, Integer page, /*@RequestParam(defaultValue = "title,body")*/ String searchKeywordTypeCode, String searchKeyword) {
 //	public String showList(Model model, @RequestParam(defaultValue = "1")Integer boardId, @RequestParam(defaultValue = "1")Integer page) {
 
 		int articlesPerPage;
@@ -186,6 +186,9 @@ public class UsrArticleController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("hitCount", endPage);
+		
+		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "usr/article/list";
 		

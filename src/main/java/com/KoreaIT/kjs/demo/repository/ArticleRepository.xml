@@ -63,12 +63,23 @@
 		ON A.memberId = M.id
 		WHERE A.id = #{id}
 	</select>
-	
+
 	<select id="getAllArticlesCount" resultType="int">
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
 		<if test="searchKeyword != null">
-			WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
+			<choose>
+				<when test="searchKeywordTypeCode == 'title'">
+					WHERE A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'body'">
+					WHERE A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<otherwise>
+					WHERE A.title LIKE CONCAT('%',#{searchKeyword},'%')
+					OR A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</otherwise>
+			</choose>
 		</if>
 	</select>
 
@@ -77,7 +88,19 @@
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
 		<if test="searchKeyword != null">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+			<choose>
+				<when test="searchKeywordTypeCode == 'title'">
+					AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchKeywordTypeCode == 'body'">
+					AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<otherwise>
+					AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+					OR
+					A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</otherwise>
+			</choose>
 		</if>
 	</select>
 

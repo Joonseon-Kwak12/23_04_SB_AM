@@ -6,6 +6,31 @@
 
 
 
+<!-- <iframe src="http://localhost:8081/usr/article/doIncreaseHitCountRd?id=2" frameborder="0"></iframe> -->
+<!-- 조회수 관련 AJAX 스크립트 시작 -->
+<script>
+	const params = {}
+	params.id = parseInt('${param.id}')
+</script>
+<script>
+	function ArticleDetail__increaseHitCount() {
+		$.get('../article/doIncreaseHitCountRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__hit-count').empty().html(data.data1);
+		},'json');
+	}
+	
+	$(function() {
+		// 연습 확인용 코드
+		setTimeout(ArticleDetail__increaseHitCount, 2000);
+		// 실제로 넣을 코드
+		// ArticleDetail_
+	})
+</script>
+<!-- 조회수 관련 AJAX 스크립트 끝 -->
+
 <section>
 	<header class=articleInfo>
 		<div>글번호: ${article.id }</div>
@@ -51,7 +76,9 @@
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td>${article.hitCount }</td>
+						<td>
+							<span class="article-detail__hit-count">${article.hitCount }</span>
+						</td>
 					</tr>
 				</tbody>
 

@@ -34,4 +34,6 @@ public interface ArticleRepository {
 //	어떻게 반환값 int로 받아올 수 있는지 알아볼 것
 	public int increaseHitCount(int id);
 	
+	public int getArticleHitCount(int id);
+	
 }

@@ -118,6 +118,7 @@ public class ArticleService {
 	}
 
 	public ResultData increaseHitCount(int id) {
+		
 		int affectedRow = articleRepository.increaseHitCount(id);
 		
 		if(affectedRow == 0) {
@@ -125,7 +126,13 @@ public class ArticleService {
 		}
 		
 		return ResultData.from("S-1", "조회수 증가", "affectedRowRd", affectedRow);
-		
 	}
+
+	public int getArticleHitCount(int id) {
+		
+		return articleRepository.getArticleHitCount(id);
+	}
+	
+	
 	
 }

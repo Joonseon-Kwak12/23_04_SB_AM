@@ -212,11 +212,12 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		
-		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
-		
-		if (increaseHitCountRd.isFail()) {
-			return rq.jsHistoryBackOnView(increaseHitCountRd.getMsg());
-		}
+		// AJAX로 구현하기 위해 조회수 증가 기능을 따로 분리함
+//		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+//		
+//		if (increaseHitCountRd.isFail()) {
+//			return rq.jsHistoryBackOnView(increaseHitCountRd.getMsg());
+//		}
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
@@ -224,4 +225,20 @@ public class UsrArticleController {
 		
 		return "usr/article/detail";
 	}
+	
+	@RequestMapping("usr/article/doIncreaseHitCountRd")
+	@ResponseBody
+	public ResultData doIncreaseHitCountRd(int id) {
+		
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if (increaseHitCountRd.isFail()) {
+			
+			return increaseHitCountRd;
+		}
+		
+		
+		return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getArticleHitCount(id));
+	}
+	
 }

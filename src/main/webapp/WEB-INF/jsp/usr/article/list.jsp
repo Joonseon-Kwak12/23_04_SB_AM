@@ -41,9 +41,21 @@
 			
 		</div>
 		<a href="/usr/article/write" class="block w-24 h-6 bg-black text-white text-sm text-center rounded">글쓰기</a>
-		<div><!-- 페이지네이션 바깥 공간 -->
-			<div class ="flex">
-				<a href="/usr/article/list?<%= page %>">${page }</a>
+		<div>
+			<!-- 페이지네이션 바깥 공간 -->
+			<div class="flex">
+				<c:choose>
+					<c:when test="${boardId != null}">
+						<c:forEach begin="1" end="${pagesCount }" var="i">
+							<a href="?boardId=${boardId }&page=${i }">${i }</a>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach begin="1" end="${pagesCount }" var="i">
+							<a href="?page=${i }">${i }</a>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

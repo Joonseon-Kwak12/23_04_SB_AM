@@ -31,6 +31,7 @@ public interface ArticleRepository {
 	
 	public int getLastInsertId();
 
-	public void increaseHitCount(int id);
+//	어떻게 반환값 int로 받아올 수 있는지 알아볼 것
+	public int increaseHitCount(int id);
 	
 }

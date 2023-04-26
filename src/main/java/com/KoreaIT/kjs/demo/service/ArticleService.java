@@ -117,9 +117,14 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 글을 수정했습니다.", id), "article", article);
 	}
 
-	public void increaseHitCount(int id) {
+	public ResultData increaseHitCount(int id) {
+		int affectedRow = articleRepository.increaseHitCount(id);
 		
-		articleRepository.increaseHitCount(id);
+		if(affectedRow == 0) {
+			return ResultData.from("F-1", "해당 게시물 없음", "affectedRowRd", affectedRow);
+		}
+		
+		return ResultData.from("S-1", "조회수 증가", "affectedRowRd", affectedRow);
 		
 	}
 	

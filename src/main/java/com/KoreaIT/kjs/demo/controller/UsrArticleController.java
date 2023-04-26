@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.kjs.demo.service.ArticleService;
@@ -132,13 +133,13 @@ public class UsrArticleController {
 
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, Integer boardId, Integer page) {
+	public String showList(Model model, Integer boardId, Integer page, String searchKeyword) {
 //	public String showList(Model model, @RequestParam(defaultValue = "1")Integer boardId, @RequestParam(defaultValue = "1")Integer page) {
 
 		int articlesPerPage;
 		articlesPerPage = 10;
 		
-		if (page == null) {
+		if (page == null || page <= 0) {
 			page = 1;
 		}
 		
@@ -164,21 +165,26 @@ public class UsrArticleController {
 		List<Article> articles = null;
 		
 		if (boardId != null) {
-			articlesCount = articleService.getArticlesCount(boardId);
-			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage);
+			articlesCount = articleService.getArticlesCount(boardId, searchKeyword);
+			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage, searchKeyword);
 			model.addAttribute("board", board);
 			model.addAttribute("boardId", boardId);			
 		} else {
-			articlesCount = articleService.getArticlesCount();
-			articles = articleService.getForPrintAllArticles(page, articlesPerPage);
+			articlesCount = articleService.getArticlesCount(searchKeyword);
+			articles = articleService.getForPrintAllArticles(page, articlesPerPage, searchKeyword);
 		}
 		
 		int pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
+		
+		int startPage = (page - 2 > 1) ? page - 2 : 1;
+		int endPage = (page + 2 < pagesCount) ? page + 2 : pagesCount;
 		
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 		model.addAttribute("page", page);
 		model.addAttribute("pagesCount", pagesCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		return "usr/article/list";
 		

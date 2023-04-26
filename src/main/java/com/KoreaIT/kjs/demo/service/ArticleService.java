@@ -39,18 +39,18 @@ public class ArticleService {
 	}
 	
 
-	public List<Article> getForPrintAllArticles(Integer page, int articlesPerPage) {
+	public List<Article> getForPrintAllArticles(Integer page, int articlesPerPage, String searchKeyword) {
 		
 		int articleFrom = (page - 1) * articlesPerPage;
 		
-		return articleRepository.getForPrintAllArticles(articleFrom, articlesPerPage);
+		return articleRepository.getForPrintAllArticles(articleFrom, articlesPerPage, searchKeyword);
 	}	
 	
-	public List<Article> getForPrintArticles(Integer boardId, Integer page, int articlesPerPage) {
+	public List<Article> getForPrintArticles(Integer boardId, Integer page, int articlesPerPage, String searchKeyword) {
 		
 		int articleFrom = (page - 1) * articlesPerPage;
 		
-		return articleRepository.getForPrintArticles(boardId, articleFrom, articlesPerPage);
+		return articleRepository.getForPrintArticles(boardId, articleFrom, articlesPerPage, searchKeyword);
 	}
 	
 	public Article getForPrintArticle(int actorId, int id) {
@@ -107,14 +107,14 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 글을 수정했습니다.", id), "article", article);
 	}
 
-	public int getArticlesCount() {
+	public int getArticlesCount(String searchKeyword) {
 		
-		return articleRepository.getArticlesCount();
+		return articleRepository.getAllArticlesCount(searchKeyword);
 	}
 	
-	public int getArticlesCount(Integer boardId) {
+	public int getArticlesCount(Integer boardId, String searchKeyword) {
 		
-		return articleRepository.getArticlesCount(boardId);
+		return articleRepository.getArticlesCount(boardId, searchKeyword);
 	}
 	
 }

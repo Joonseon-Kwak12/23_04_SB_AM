@@ -41,23 +41,32 @@
 			
 		</div>
 		<a href="/usr/article/write" class="block w-24 h-6 bg-black text-white text-sm text-center rounded">글쓰기</a>
-		<div>
-			<!-- 페이지네이션 바깥 공간 -->
-			<div class="flex">
+		<div> <!-- 게시판 바깥 공간 시작-->
+		
+			<div class="flex"> <!-- 페이지네이션 시작 -->
 				<c:choose>
 					<c:when test="${boardId != null}">
-						<c:forEach begin="1" end="${pagesCount }" var="i">
-							<a href="?boardId=${boardId }&page=${i }">${i }</a>
+						<c:forEach begin="${startPage }" end="${endPage }" var="i">
+							<a ${page==i ? 'class="text-pink-700"':'' } href="?boardId=${boardId }&page=${i }">${i }</a>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach begin="1" end="${pagesCount }" var="i">
-							<a href="?page=${i }">${i }</a>
+						<c:forEach begin="${startPage }" end="${endPage }" var="i">
+							<a ${page==i ? 'class="text-pink-700"':'' } href="?page=${i }">${i }</a>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+			</div> <!-- 페이지네이션 끝 -->
+			
+			<div>
+				<form action="list">
+					<input type="hidden" name="boardId" value="${boardId }"/>
+					<input type="text" name="searchKeyword" class="rounded w-full" />
+					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">검색</button>
+				</form>
 			</div>
-		</div>
+			
+		</div> <!-- 게시판 바깥 공간 끝 -->
 	</div>
 	<div class="h-40"><!-- 스크롤 아래로 내리기 위한 빈 공간 --></div>
 </section>

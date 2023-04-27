@@ -168,7 +168,7 @@ public class UsrArticleController {
 		if (boardId != null) {
 			articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 			pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
-			if (page > pagesCount) page = pagesCount;
+			// if (page > pagesCount) page = pagesCount;
 			
 			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 			model.addAttribute("board", board);
@@ -176,7 +176,7 @@ public class UsrArticleController {
 		} else {
 			articlesCount = articleService.getArticlesCount(searchKeywordTypeCode, searchKeyword);
 			pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
-			if (page > pagesCount) page = pagesCount;
+			// if (page > pagesCount) page = pagesCount;
 			
 			articles = articleService.getForPrintAllArticles(page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 		}
@@ -249,5 +249,15 @@ public class UsrArticleController {
 		
 		return rd;
 	}
+	
+//	// 좋아요 기능 추가 AJAX 시작
+//	@RequestMapping("usr/article/doIncreaseLike")
+//	@ResponseBody
+//	public void doIncreaseLike(int id) {
+//		
+//		articleService.increaseLike(id);
+//		
+//	}
+//	// 좋아요 기능 추가 AJAX 끝
 	
 }

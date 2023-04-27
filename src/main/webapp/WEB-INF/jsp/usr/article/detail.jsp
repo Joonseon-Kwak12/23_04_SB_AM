@@ -34,10 +34,27 @@
 		// 연습 확인용 코드
 		setTimeout(ArticleDetail__increaseHitCount, 2000);
 		// 실제로 넣을 코드
-		// ArticleDetail_
+		// ArticleDetail__increaseHitCount();
 	})
 </script>
 <!-- 조회수 관련 AJAX 스크립트 끝 -->
+<!-- 좋아요 관련 AJAX 스크립트 시작 -->
+<!-- <script>
+	function ArticleDetail__like() {
+		
+		$.post('../article/doIncreaseLike', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__like').empty().html(data.data1);
+		},'json');
+	}
+	
+	$(function() {
+		ArticleDetail__increaseHitCount();
+	})
+</script> -->
+<!-- 좋아요 관련 AJAX 스크립트 끝 -->
 
 <section>
 	<header class=articleInfo>
@@ -82,7 +99,9 @@
 					</tr>
 					<tr>
 						<th>좋아요</th>
-						<td>${article.extra__goodReactionPoint }</td>
+						<td>
+							<span class="article-detail__like">${article.extra__goodReactionPoint }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>싫어요</th>
@@ -106,6 +125,8 @@
 		</div>
 		<div class="btns">
 			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+<!-- 			<button class="btn-text-link article-detail__like" type="button" onclick="article_like();">좋아요</button>
+			<button class="btn-text-link article-detail__dislike" type="button" onclick="article_dislike();">싫어요</button> -->
 			<c:if test="${article.actorCanModify }">
 				<button class="btn-text-link" type="button"
 				onclick="location.href = '../article/modify?id=${article.id}'">수정</button>

@@ -132,6 +132,11 @@ public class ArticleService {
 		
 		return articleRepository.getArticleHitCount(id);
 	}
+
+	public void increaseLike(int id) {
+		
+		articleRepository.increaseLike(id);
+	}
 	
 	
 	

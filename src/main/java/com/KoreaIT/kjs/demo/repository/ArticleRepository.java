@@ -36,5 +36,6 @@ public interface ArticleRepository {
 	
 	public int getArticleHitCount(int id);
 
+	public void increaseLike(int id);
 	
 }

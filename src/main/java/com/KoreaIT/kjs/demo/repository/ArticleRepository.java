@@ -31,7 +31,7 @@ public interface ArticleRepository {
 	
 	public int getLastInsertId();
 
-//	어떻게 반환값 int로 받아올 수 있는지 알아볼 것
+//	어떻게 반환값 int로 받아올 수 있는지 알아볼 것 -> UPDATE, DELETE, INSERT는 원래 affectedRow 개수를 반환함
 	public int increaseHitCount(int id);
 	
 	public int getArticleHitCount(int id);

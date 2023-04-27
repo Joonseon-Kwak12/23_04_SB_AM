@@ -1,14 +1,12 @@
-$('select[data-value]').each(function(index, el) {
-	const $el = $(el);
-
-	const defaultValue = $el.attr('data-value').trim();
-
-	if (defaultValue.length > 0) {
-		$el.val(defaultValue);
-	}
-});
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="ARTICLE DETAIL" />
+<%@ include file="common/head.jspf"%>
+<hr />
 
 
+
+<script>
 function ajax() {
 	var xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성, 함수 내 지역변수로 선언 권장
 
@@ -41,4 +39,12 @@ function ajax() {
 	// ex) xhr.send(JSON.parse(data));
 	xhr.send(null);
 }
+</script>
 
+<section>
+
+</section>
+
+
+
+<%@ include file="common/foot.jspf"%>

@@ -11,6 +11,7 @@
 <%@ include file="../common/head.jspf"%>
 
 
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box">
@@ -30,7 +31,7 @@
 				<c:forEach var="article" items="${articles }">
 					<li style="border: solid rgb(161 161 170); border-width: 1px 0 1px 0; ">
 					<!-- <li class="border-solid border-y-[1px] border-slate-400"> tailwind border color가 안 돼서 임시 저장-->
-					<!-- 자연스럽게 하려면 border 말고 devide로 가야하는 듯, okky에서도 테일윈드 divide 쓴 듯하다 -->
+					<!-- 자연스럽게 하려면 border 말고 divide로 가야하는 듯, okky에서도 테일윈드 divide 쓴 듯하다 -->
 						<div class="flex gap-x-11 my-2">
 							<div>${article.id}</div>
 							<div>${article.extra__writer}</div>

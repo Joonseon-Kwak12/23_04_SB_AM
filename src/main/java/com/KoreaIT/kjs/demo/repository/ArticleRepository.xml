@@ -103,10 +103,10 @@
 				<when test="searchKeywordTypeCode == 'body'">
 					WHERE A.body LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
-				<otherwise>
+				<when test="searchKeywordTypeCode == 'title,body'">
 					WHERE A.title LIKE CONCAT('%',#{searchKeyword},'%')
 					OR A.body LIKE CONCAT('%',#{searchKeyword},'%')
-				</otherwise>
+				</when>
 			</choose>
 		</if>
 	</select>
@@ -123,11 +123,10 @@
 				<when test="searchKeywordTypeCode == 'body'">
 					AND A.body LIKE CONCAT('%',#{searchKeyword},'%')
 				</when>
-				<otherwise>
+				<when test="searchKeywordTypeCode == 'title,body'">
 					AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
-					OR
-					A.body LIKE CONCAT('%',#{searchKeyword},'%')
-				</otherwise>
+					OR A.body LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
 			</choose>
 		</if>
 	</select>

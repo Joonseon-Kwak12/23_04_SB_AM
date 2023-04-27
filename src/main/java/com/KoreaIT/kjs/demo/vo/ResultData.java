@@ -11,6 +11,10 @@ public class ResultData<DT> {
 	private DT data1;
 	@Getter
 	private String data1Name;
+	@Getter
+	private Object data2;
+	@Getter
+	private String data2Name;
 	
 	public static <DT> ResultData<DT> from(String resultCode, String msg) { // 가져올 데이터가 없는 경우
 		return from(resultCode, msg, null, null);
@@ -37,6 +41,12 @@ public class ResultData<DT> {
 	public static <DT> ResultData<DT> newData(ResultData rd, String Data1Name, DT newData) {
 		return from(rd.getResultCode(), rd.getMsg(), Data1Name, newData);
 		// 원래 받은 데이터에서 resultCode와 msg는 그대로 갖고 오고, data1 자리에 있는 것만 교체해줌
+	}
+
+	public void setData2(String data2Name, Object data2) {
+		
+		this.data2Name = data2Name;
+		this.data2 = data2;
 	}
 
 }

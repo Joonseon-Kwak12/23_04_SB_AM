@@ -57,6 +57,8 @@ CREATE TABLE article(
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
 # 게시물 테이블 구조 변경 - boardId 컬럼 추가
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
+# 게시물 테이블 구조 변경 - hitCount 컬럼 추가
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL;
 
 UPDATE article
 SET boardId = 1
@@ -160,3 +162,19 @@ SELECT nickname
 		INNER JOIN `member` AS m
 		ON a.memberId = m.id
 		WHERE m.id = 1;
+		
+# 검색 기능 관련 임시 쿼리문
+SELECT A.*, M.nickname AS extra__writer
+FROM article AS A
+INNER JOIN
+`member` AS M
+ON A.memberId = M.id
+WHERE title LIKE '%제목%'
+ORDER BY A.id DESC
+LIMIT 0, 10;
+
+SELECT COUNT(*) AS cnt
+		FROM article AS A
+		WHERE 1
+		AND A.boardId = 1
+		AND title LIKE CONCAT('%', '제목', '%');

@@ -3,13 +3,72 @@ DROP DATABASE IF EXISTS SB_AM_04;
 CREATE DATABASE SB_AM_04;
 USE SB_AM_04;
 
-#----------
+#---------------------------------------------------------------------------------------
+SELECT * FROM reactionPoint;
 SELECT * FROM board;
 SELECT * FROM article;
 SELECT * FROM `member`;
-#----------
+#---------------------------------------------------------------------------------------
+# 좋아요 테이블 생성
+SELECT * FROM reactionPoint;
 
+CREATE TABLE reactionPoint(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+    relId INT(10) NOT NULL COMMENT '관련 데이터 번호',
+    `point` INT(10) NOT NULL
+);
 
+# reactionPoint 테스트 데이터
+# 1번 회원이 1번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 1번 회원이 2번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# 2번 회원이 1번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 2번 회원이 2번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`point` = -1;
+
+# 3번 회원이 1번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+#---------------------------------------------------------------------------------------
 # 게시판 테이블 생성
 SELECT * FROM board;
 
@@ -41,7 +100,7 @@ updateDate = NOW(),
 `code` = 'qna',
 `name` = '질의응답';
 
-
+#---------------------------------------------------------------------------------------
 # 게시물 테이블 생성
 SELECT * FROM article;
 
@@ -100,6 +159,7 @@ FROM article;
 # URL
 # http://localhost:8081/usr/member/doLogin?loginId=admin&loginPw=admin
 
+#---------------------------------------------------------------------------------------
 # 회원 테이블 생성
 DROP TABLE IF EXISTS `member`;
 

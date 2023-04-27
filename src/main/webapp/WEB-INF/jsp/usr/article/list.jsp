@@ -23,18 +23,20 @@
 						<div>작성자</div>
 						<div>작성일</div>
 						<div>조회수</div>
+						<div>추천</div>
 					</div>
 					<div class="font-semibold my-2">제목</div>
 				</li>
 				<c:forEach var="article" items="${articles }">
 					<li style="border: solid rgb(161 161 170); border-width: 1px 0 1px 0; ">
-					<!-- <li class="border-solid border-y-[1px] border-slate-400"> tailwind border가 안 돼서 임시 저장-->
+					<!-- <li class="border-solid border-y-[1px] border-slate-400"> tailwind border color가 안 돼서 임시 저장-->
 					<!-- 자연스럽게 하려면 border 말고 devide로 가야하는 듯, okky에서도 테일윈드 divide 쓴 듯하다 -->
 						<div class="flex gap-x-11 my-2">
 							<div>${article.id}</div>
 							<div>${article.extra__writer}</div>
 							<div>${article.regDate.substring(0,16)}</div>
 							<div>${article.hitCount}</div>
+							<div>${article.extra__goodReactionPoint}</div>
 						</div>
 						<div class="font-semibold my-2"><a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a></div>
 					</li>

@@ -162,20 +162,25 @@ public class UsrArticleController {
 		}		
 				
 		int articlesCount = 0;
+		int pagesCount = 0;
 		List<Article> articles = null;
 		
 		if (boardId != null) {
 			articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
+			pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
+			if (page > pagesCount) page = pagesCount;
+			
 			articles = articleService.getForPrintArticles(boardId, page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 			model.addAttribute("board", board);
 			model.addAttribute("boardId", boardId);			
 		} else {
 			articlesCount = articleService.getArticlesCount(searchKeywordTypeCode, searchKeyword);
+			pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
+			if (page > pagesCount) page = pagesCount;
+			
 			articles = articleService.getForPrintAllArticles(page, articlesPerPage, searchKeywordTypeCode, searchKeyword);
 		}
-		
-		int pagesCount = (int) Math.ceil((articlesCount) / (double)articlesPerPage);
-		
+				
 		int startPage = (page - 2 > 1) ? page - 2 : 1;
 		int endPage = (page + 2 < pagesCount) ? page + 2 : pagesCount;
 		

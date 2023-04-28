@@ -100,14 +100,15 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span>좋아요 : ${article.extra__goodReactionPoint }</span>
+							<span>좋아요: ${article.goodReactionPoint }</span>
 							<c:if test="${actorCanMakeReaction }">
 								<span>
-									<span>&nbsp;</span>
 									<button>👍</button>
 								</span>
+							</c:if>
+							<span>싫어요: ${article.badReactionPoint }</span>
+							<c:if test="${actorCanMakeReaction }">
 								<span>
-									<span>&nbsp;</span>
 									<button>👎</button>
 								</span>
 							</c:if>

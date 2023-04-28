@@ -37,7 +37,7 @@
 							<div>${article.extra__writer}</div>
 							<div>${article.regDate.substring(0,16)}</div>
 							<div>${article.hitCount}</div>
-							<div>${article.extra__goodReactionPoint}</div>
+							<div>${article.goodReactionPoint}</div>
 						</div>
 						<div class="font-semibold my-2"><a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a></div>
 					</li>
@@ -59,10 +59,11 @@
 					<c:set var="addUriCondition" value="${addUriCondition }&searchKeyword=${searchKeyword }" />
 				</c:if>
 
+				<span> <a href="?page=1"> &lt;&lt; </a> </span>
 				<c:forEach begin="${startPage }" end="${endPage }" var="i">
 					<a ${page==i ? 'class="text-pink-700"':'' } href="?page=${i }${addUriCondition }">${i }</a>
 				</c:forEach>
-
+				<span> <a href="?page=${pagesCount }"> &gt;&gt; </a></span>
 <%-- 				<c:choose>
 					<c:when test="${boardId != null}">
 						<c:forEach begin="${startPage }" end="${endPage }" var="i">

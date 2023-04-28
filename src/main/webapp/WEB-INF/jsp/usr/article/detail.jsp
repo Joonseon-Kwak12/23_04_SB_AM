@@ -32,9 +32,9 @@
 	
 	$(function() {
 		// 연습 확인용 코드
-		setTimeout(ArticleDetail__increaseHitCount, 2000);
+		// setTimeout(ArticleDetail__increaseHitCount, 2000);
 		// 실제로 넣을 코드
-		// ArticleDetail__increaseHitCount();
+		ArticleDetail__increaseHitCount();
 	})
 </script>
 <!-- 조회수 관련 AJAX 스크립트 끝 -->
@@ -103,13 +103,13 @@
 							<span>좋아요: ${article.goodReactionPoint }</span>
 							<c:if test="${actorCanMakeReaction }">
 								<span>
-									<button>👍</button>
+									<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" class="btn btn-xs">👍</a>
 								</span>
 							</c:if>
 							<span>싫어요: ${article.badReactionPoint }</span>
 							<c:if test="${actorCanMakeReaction }">
 								<span>
-									<button>👎</button>
+									<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" class="btn btn-xs">👎</a>
 								</span>
 							</c:if>
 						</td>

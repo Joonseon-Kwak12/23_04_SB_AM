@@ -1,5 +1,6 @@
 package com.KoreaIT.kjs.demo.repository;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,4 +15,26 @@ public interface ReactionPointRepository {
 			AND RP.memberId = #{actorId}
 			""")
 	public int getSumReactionPointByMemberId(int actorId, String relTypeCode, int relId);
+
+	@Insert("""
+			INSERT INTO reactionPoint
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			relTypeCode = #{relTypeCode},
+			relId = #{relId},
+			memberId = #{actorId},
+			`point` = 1
+			""")
+	public int addGoodReactionPoint(int actorId, String relTypeCode, int relId);
+	
+	@Insert("""
+			INSERT INTO reactionPoint
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			relTypeCode = #{relTypeCode},
+			relId = #{relId},
+			memberId = #{actorId},
+			`point` = -1
+			""")
+	public int addBadReactionPoint(int actorId, String relTypeCode, int relId);
 }

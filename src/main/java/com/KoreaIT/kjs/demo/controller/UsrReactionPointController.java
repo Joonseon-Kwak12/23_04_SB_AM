@@ -52,4 +52,24 @@ public class UsrReactionPointController {
 		
 		return rq.jsReplace("싫어요!", replaceUri);
 	}
+	
+	@RequestMapping("/usr/reactionPoint/cancelGoodReaction")
+	@ResponseBody
+	public String cancelGoodReaction(String relTypeCode, int relId, String replaceUri) {
+				
+		boolean actorCanCancelReaction = (reactionPointService.getActorReaction(rq.getLoginedMemberId(), "article", relId) == 1);
+		if (!actorCanCancelReaction) {
+			return rq.jsHistoryBack("F-1", "취소할 수 없습니다.");
+		}
+		
+		ResultData rd =  reactionPointService.cancelGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		
+		if (rd.isFail()) {
+			rq.jsHistoryBack(rd.getMsg(), "좋아요 취소 실패");
+		}
+		
+		return rq.jsReplace("좋아요 취소", replaceUri);
+	}
+	
+	
 }

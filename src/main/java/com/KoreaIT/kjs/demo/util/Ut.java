@@ -1,5 +1,8 @@
 package com.KoreaIT.kjs.demo.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class Ut {
 
 	public static boolean empty(Object obj) {
@@ -76,6 +79,15 @@ public class Ut {
 				</script>
 				""", msg, uri);
 	}
-	
-	
+
+
+	public static String getEncodedCurrentUri(String currentUri) {
+		
+		try {
+			return URLEncoder.encode(currentUri, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return currentUri;
+		}
+	}
 }

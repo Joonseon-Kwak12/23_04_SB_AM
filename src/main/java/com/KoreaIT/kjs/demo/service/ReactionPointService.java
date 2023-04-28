@@ -22,6 +22,11 @@ public class ReactionPointService {
 		}
 		return reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId) == 0;
 	}
+	
+	public int getActorReaction(int actorId, String relTypeCode, int relId) {
+		
+		return reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId);
+	}
 
 	public ResultData addGoodReactionPoint(int actorId, String relTypeCode, int relId) {
 

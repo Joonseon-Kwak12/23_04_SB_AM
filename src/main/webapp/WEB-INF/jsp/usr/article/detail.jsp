@@ -103,16 +103,32 @@
 							<span>좋아요: ${article.goodReactionPoint }</span>
 							<span>싫어요: ${article.badReactionPoint }</span>
 
-							<c:if test="${actorCanMakeReaction }">
+							<c:if test="${rq.isLogined() }">
 								<div class="flex justify-around">
-									<div class="bg-blue-50 px-2">
-										<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
-											class="btn btn-xs">△</a>
-									</div>
-									<div class="bg-red-50 px-2">
-										<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
-											class="btn btn-xs">▽</a>
-									</div>
+									<c:choose>
+										<c:when test="${actorReaction==1 }">
+											<div class="bg-blue-500 px-2">
+												<a href="/usr/reactionPoint/cancelGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">△</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="bg-blue-50 px-2">
+												<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">△</a>
+											</div>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${actorReaction==-1 }">
+											<div class="bg-red-500 px-2">
+												<a href="/usr/reactionPoint/cancelBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">▽</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="bg-red-50 px-2">
+												<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">▽</a>
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</c:if>
 

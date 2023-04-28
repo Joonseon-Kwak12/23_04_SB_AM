@@ -232,8 +232,12 @@ public class UsrArticleController {
 //		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
 		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
 		
+		int actorReaction = reactionPointService.getActorReaction(rq.getLoginedMemberId(), "article", id);
+		
 		model.addAttribute("article", article);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		model.addAttribute("actorReaction", actorReaction);
+		
 		
 		return "usr/article/detail";
 	}

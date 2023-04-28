@@ -38,6 +38,6 @@ public interface ArticleRepository {
 
 	public void increaseLike(int id);
 	
-	public int getSumReactionPointByMemberId(int actorId, int id);
+//	public int getSumReactionPointByMemberId(int actorId, int id);
 	
 }

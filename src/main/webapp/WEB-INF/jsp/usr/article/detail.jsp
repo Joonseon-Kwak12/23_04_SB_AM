@@ -98,18 +98,20 @@
 						</td>
 					</tr>
 					<tr>
-						<th>좋아요</th>
+						<th>추천</th>
 						<td>
-							<span class="article-detail__like">${article.extra__goodReactionPoint }</span>
+							<span>좋아요 : ${article.extra__goodReactionPoint }</span>
+							<c:if test="${actorCanMakeReaction }">
+								<span>
+									<span>&nbsp;</span>
+									<button>👍</button>
+								</span>
+								<span>
+									<span>&nbsp;</span>
+									<button>👎</button>
+								</span>
+							</c:if>
 						</td>
-					</tr>
-					<tr>
-						<th>싫어요</th>
-						<td>${article.extra__badReactionPoint }</td>
-					</tr>
-					<tr>
-						<th>추천 합계</th>
-						<td>${article.extra__sumReactionPoint }</td>
 					</tr>
 					<tr>
 						<th>제목</th>

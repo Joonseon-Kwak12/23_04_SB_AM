@@ -137,6 +137,11 @@ public class ArticleService {
 		
 		articleRepository.increaseLike(id);
 	}
+
+	public boolean actorCanMakeReaction(int actorId, int id) {
+
+		return articleRepository.getSumReactionPointByMemberId(actorId, id) == 0;
+	}
 	
 	
 	

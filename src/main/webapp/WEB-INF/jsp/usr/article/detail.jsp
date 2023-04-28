@@ -15,21 +15,21 @@
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
-		
-		if(localStorage.getItem(localStorageKey)) {
+
+		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
-		
+
 		localStorage.setItem(localStorageKey, true);
-		
+
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
 		}, function(data) {
 			$('.article-detail__hit-count').empty().html(data.data1);
-		},'json');
+		}, 'json');
 	}
-	
+
 	$(function() {
 		// 연습 확인용 코드
 		// setTimeout(ArticleDetail__increaseHitCount, 2000);
@@ -101,17 +101,21 @@
 						<th>추천</th>
 						<td>
 							<span>좋아요: ${article.goodReactionPoint }</span>
-							<c:if test="${actorCanMakeReaction }">
-								<span>
-									<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" class="btn btn-xs">👍</a>
-								</span>
-							</c:if>
 							<span>싫어요: ${article.badReactionPoint }</span>
+
 							<c:if test="${actorCanMakeReaction }">
-								<span>
-									<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" class="btn btn-xs">👎</a>
-								</span>
+								<div class="flex justify-around">
+									<div class="bg-blue-50 px-2">
+										<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+											class="btn btn-xs">△</a>
+									</div>
+									<div class="bg-red-50 px-2">
+										<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+											class="btn btn-xs">▽</a>
+									</div>
+								</div>
 							</c:if>
+
 						</td>
 					</tr>
 					<tr>
@@ -128,11 +132,10 @@
 		</div>
 		<div class="btns">
 			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-<!-- 			<button class="btn-text-link article-detail__like" type="button" onclick="article_like();">좋아요</button>
+			<!-- 			<button class="btn-text-link article-detail__like" type="button" onclick="article_like();">좋아요</button>
 			<button class="btn-text-link article-detail__dislike" type="button" onclick="article_dislike();">싫어요</button> -->
 			<c:if test="${article.actorCanModify }">
-				<button class="btn-text-link" type="button"
-				onclick="location.href = '../article/modify?id=${article.id}'">수정</button>
+				<button class="btn-text-link" type="button" onclick="location.href = '../article/modify?id=${article.id}'">수정</button>
 			</c:if>
 			<c:if test="${article.actorCanDelete }">
 				<button class="btn-text-link" type="button"

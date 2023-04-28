@@ -15,12 +15,17 @@ public class ReactionPointService {
 	private ArticleService articleService;
 	
 
-	public boolean actorCanMakeReaction(int actorId, String relTypeCode, int relId) {
+	public ResultData actorCanMakeReaction(int actorId, String relTypeCode, int relId) {
 		
 		if (actorId == 0) {
-			return false;
+			return ResultData.from("F-1", "로그인이 필요합니다.");
 		}
-		return reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId) == 0;
+		
+		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId);
+		
+		if (sumReactionPointByMemberId) {
+			
+		}
 	}
 	
 	public int getActorReaction(int actorId, String relTypeCode, int relId) {

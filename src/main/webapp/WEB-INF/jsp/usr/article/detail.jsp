@@ -142,8 +142,19 @@
 			</div>
 		</div>
 		<div id="reply-part">
-			<div class="h-20">
-				<!-- 댓글 부분 -->
+			<div class="mt-6">
+				<form action="../reply/doWrite" method="post">
+					댓글
+					<c:choose>
+						<c:when test="${rq.isLogined() }">
+							<textarea placeholder="댓글 내용을 입력해주세요." name="body" rows="3" class="rounded resize-none"></textarea>
+						</c:when>
+						<c:when test="${!rq.isLogined() }">
+							<textarea disabled placeholder="로그인 후 이용 가능합니다." name="body" rows="3" class="rounded resize-none"></textarea>
+						</c:when>
+					</c:choose>
+					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>
+				</form>
 			</div>
 		</div>
 	</article>

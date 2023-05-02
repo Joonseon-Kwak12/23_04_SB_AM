@@ -22,15 +22,15 @@
 
 		localStorage.setItem(localStorageKey, true);
 
-		$.get('../article/doIncreaseHitCountRd', {
-			id : params.id,
-			ajaxMode : 'Y'
-		}, function(data) {
-			$('.article-detail__hit-count').empty().html(data.data1);
-		}, 'json');
+		$.get('../article/doIncreaseHitCountRd', { // 해당 url에 get 메소드 요청
+			id : params.id, // id로 params.id 넘기고
+			ajaxMode : 'Y' // ajax 사용
+		}, function(data) { // 통신 성공 시 실행할 콜백함수
+			$('.article-detail__hit-count').empty().html(data.data1); // html 요소 중 article-detail__hit-count 클래스 가진 요소 선택해서, empty로 비운 후, 들어온 data에서 data.data1만 뽑아내서 html로 넣음  
+		}, 'json'); // 형식은 json 형식 사용
 	}
 
-	$(function() {
+	$(function() { // 위 ArticleDetail__increaseHitCount()을 실행시킨다.
 		// 연습 확인용 코드
 		// setTimeout(ArticleDetail__increaseHitCount, 2000);
 		// 실제로 넣을 코드

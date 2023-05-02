@@ -85,6 +85,7 @@
 					<input type="hidden" name="boardId" value="${boardId }" />
 					검색 조건 선택
 					<select data-value="${param.searchKeywordTypeCode }" name="searchKeywordTypeCode" class="rounded <w-24></w-24>">
+					<!-- data-value >>>> data 속성 찾아보기 -->
 						<option value="title">제목</option>
 						<option value="body">내용</option>
 						<option value="title,body">제목+내용</option>

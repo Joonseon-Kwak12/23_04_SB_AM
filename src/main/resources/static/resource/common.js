@@ -1,12 +1,14 @@
-$('select[data-value]').each(function(index, el) {
-	const $el = $(el);
+$('select[data-value]').each(function(index, el) { // list.jsp에서 검색 조건 때문에 넣은 스크립트이다
+	// select 태그 중 data-value att.를 가진 요소를 선택
+	const $el = $(el); // $el 변수 선언 - 위에서 받은 인자 el 할당 - 메소드 체이닝 사용하기 위해 준비한 것
 
-	const defaultValue = $el.attr('data-value').trim();
+	const defaultValue = $el.attr('data-value').trim(); 
 
 	if (defaultValue.length > 0) {
 		$el.val(defaultValue);
 	}
 });
+
 
 
 function ajax() {

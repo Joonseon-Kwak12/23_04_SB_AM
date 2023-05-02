@@ -83,7 +83,7 @@
 		<div class="articleInfoWrapper flex items-stretch border border-solid h-16">
 			<div id=writer-image>ㅁㅁㅁ</div>
 			<div class="grow">
-				<div>작성자: ${article.memberId }</div>
+				<div>작성자: ${article.extra__writer }</div>
 				<div class="flex justify-start border border-solid gap-x-4">
 					<div>글번호: ${article.id }</div>
 					<div>작성일: ${article.regDate }</div>
@@ -164,17 +164,17 @@
 			</div>
 		</div>
 		<div id="reply-part">
-			<div id="reply-write-window" class="mt-6">
-				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
+			<div id="reply-write-window" class="mt-6 border-y border-solid border-amber-200">
+				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;" class="flex p-2 gap-4">
 					<input type="hidden" name="relId" value="${article.id }"/>
 					<input type="hidden" name="relTypeCode" value="reply"/>
-					댓글
+					<div>댓글</div>
 					<c:choose>
 						<c:when test="${rq.isLogined() }">
-							<textarea placeholder="댓글 내용을 입력해주세요." name="body" rows="3" class="rounded resize-none"></textarea>
+							<textarea placeholder="댓글 내용을 입력해주세요." name="body" rows="3" class="rounded resize-none grow border border-solid border-gray-400"></textarea>
 						</c:when>
 						<c:when test="${!rq.isLogined() }">
-							<textarea disabled placeholder="로그인 후 이용 가능합니다." name="body" rows="3" class="rounded resize-none"></textarea>
+							<textarea disabled placeholder="로그인 후 이용 가능합니다." name="body" rows="3" class="rounded resize-none grow border border-solid border-gray-400"></textarea>
 						</c:when>
 					</c:choose>
 					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>

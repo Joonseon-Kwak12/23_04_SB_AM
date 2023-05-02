@@ -1,8 +1,12 @@
 package com.KoreaIT.kjs.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import com.KoreaIT.kjs.demo.vo.Reply;
 
 @Mapper
 public interface ReplyRepository {
@@ -22,5 +26,13 @@ public interface ReplyRepository {
 			SELECT LAST_INSERT_ID()
 			""")
 	int getLastInsertId();
+
+	@Select("""
+			SELECT R.*, M.nickname AS extra__writer
+			FROM reply AS R
+			INNER JOIN `member` AS M ON R.memberId = M.id
+			WHERE relId = #{relId}
+			""")
+	List<Reply> getForPrintReplies(int actorId, String relTypeCode, int relId);
 
 }

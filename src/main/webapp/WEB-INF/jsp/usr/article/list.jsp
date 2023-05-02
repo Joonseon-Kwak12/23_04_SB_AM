@@ -26,6 +26,7 @@
 						<div>조회수</div>
 						<div>좋아요</div>
 						<div>싫어요</div>
+						<div>댓글 수</div>
 					</div>
 					<div class="font-semibold my-2">제목</div>
 				</li>

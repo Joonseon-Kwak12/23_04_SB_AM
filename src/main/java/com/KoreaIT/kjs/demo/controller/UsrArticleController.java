@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.kjs.demo.service.ArticleService;
@@ -233,7 +232,9 @@ public class UsrArticleController {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
-		List<Reply> replies = replyService.getForPrintReplies(id);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "reply", id);
+		
+		int repliesCount = replies.size();
 		
 //		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
 		ResultData actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
@@ -243,6 +244,8 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
 		model.addAttribute("actorReaction", actorReaction);
+		model.addAttribute("replies", replies);
+		model.addAttribute("repliesCount", repliesCount);
 		
 		
 		return "usr/article/detail";

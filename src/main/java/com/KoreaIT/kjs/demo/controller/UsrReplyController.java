@@ -1,22 +1,12 @@
 package com.KoreaIT.kjs.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.KoreaIT.kjs.demo.service.ArticleService;
-import com.KoreaIT.kjs.demo.service.BoardService;
-import com.KoreaIT.kjs.demo.service.ReactionPointService;
 import com.KoreaIT.kjs.demo.service.ReplyService;
 import com.KoreaIT.kjs.demo.util.Ut;
-import com.KoreaIT.kjs.demo.vo.Article;
-import com.KoreaIT.kjs.demo.vo.Board;
-import com.KoreaIT.kjs.demo.vo.Reply;
 import com.KoreaIT.kjs.demo.vo.ResultData;
 import com.KoreaIT.kjs.demo.vo.Rq;
 

@@ -152,8 +152,12 @@ ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL;
 # 게시물 테이블 구조 변경 - 추천 관련 컬럼 추가
 ALTER TABLE article ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL;
 ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL;
+# 게시물 테이블 변경 - 글 쓸 때 hitCount와 reactionPoint 디폴트 0으로
+ALTER TABLE article MODIFY COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE article MODIFY COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE article MODIFY COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
 # 기존 게시물의 good,bad ReactionPoint 필드의 값을 채운다
-UPDATE article AS A
 INNER JOIN (
     SELECT RP.relTypeCode, RP.relId,
     SUM(IF(RP.point > 0, RP.point, 0)) AS goodReactionPoint,

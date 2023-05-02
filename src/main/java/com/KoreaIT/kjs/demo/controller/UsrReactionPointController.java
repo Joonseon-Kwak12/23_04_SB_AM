@@ -32,7 +32,7 @@ public class UsrReactionPointController {
 			rq.jsHistoryBack(rd.getMsg(), "좋아요 실패");
 		}
 		
-		return rq.jsReplace("좋아요!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 	
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -50,7 +50,7 @@ public class UsrReactionPointController {
 			rq.jsHistoryBack(rd.getMsg(), "싫어요 실패");
 		}
 		
-		return rq.jsReplace("싫어요!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 	
 	@RequestMapping("/usr/reactionPoint/cancelReaction")
@@ -70,7 +70,7 @@ public class UsrReactionPointController {
 			rq.jsHistoryBack(rd.getMsg(), "반응 취소 실패");
 		}
 		
-		return rq.jsReplace("반응 취소", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 	
 }

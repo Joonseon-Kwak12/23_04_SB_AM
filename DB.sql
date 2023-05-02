@@ -8,6 +8,7 @@ SELECT * FROM reactionPoint;
 SELECT * FROM board;
 SELECT * FROM article;
 SELECT * FROM `member`;
+SELECT * FROM reply;
 #---------------------------------------------------------------------------------------
 # 좋아요 테이블 생성
 SELECT * FROM reactionPoint;
@@ -306,3 +307,59 @@ FROM reactionPoint AS RP
 WHERE RP.relTypeCode = 'article'
 AND RP.relId = 3
 AND RP.memberId = 2;
+
+#--------
+UPDATE article
+SET goodReactionPoint = 1
+WHERE id = 124;
+UPDATE article
+SET badReactionPoint = 0
+WHERE id = 124;
+
+#---------------------------------------------------------------------------------------
+# 댓글 테이블 생성
+CREATE TABLE reply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+    relId INT(10) NOT NULL COMMENT '관련 데이터 번호',
+    `body`TEXT NOT NULL
+);
+
+# 2번 회원이 1번 글에 
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 1';
+
+# 2번 회원이 1번 글에 
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 2';
+
+# 3번 회원이 1번 글에 
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`body` = '댓글 3';
+
+# 3번 회원이 1번 글에 
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글 4';

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.KoreaIT.kjs.demo.service.ArticleService;
 import com.KoreaIT.kjs.demo.service.BoardService;
 import com.KoreaIT.kjs.demo.service.ReactionPointService;
-import com.KoreaIT.kjs.demo.service.replyService;
+import com.KoreaIT.kjs.demo.service.ReplyService;
 import com.KoreaIT.kjs.demo.util.Ut;
 import com.KoreaIT.kjs.demo.vo.Article;
 import com.KoreaIT.kjs.demo.vo.Board;
@@ -30,7 +30,7 @@ public class UsrArticleController {
 	@Autowired
 	private BoardService boardService;
 	@Autowired
-	private replyService replyService;
+	private ReplyService replyService;
 	@Autowired
 	private Rq rq;
 	@Autowired

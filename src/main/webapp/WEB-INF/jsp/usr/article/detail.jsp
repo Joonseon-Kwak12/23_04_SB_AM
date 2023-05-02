@@ -166,6 +166,8 @@
 		<div id="reply-part">
 			<div id="reply-write-window" class="mt-6">
 				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
+					<input type="hidden" name="relId" value="${article.id }"/>
+					<input type="hidden" name="relTypeCode" value="reply"/>
 					댓글
 					<c:choose>
 						<c:when test="${rq.isLogined() }">

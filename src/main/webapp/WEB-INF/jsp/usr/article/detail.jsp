@@ -55,6 +55,28 @@
 	})
 </script> -->
 <!-- 좋아요 관련 AJAX 스크립트 끝 -->
+<!-- 댓글 폼 체크 스크립트 시작 -->
+<script type="text/javascript">
+	let ReplyWrite__submitFormDone = false;
+	
+	function ReplyWrite__submitForm(form) {
+		
+		if (ReplyWrite__submitFormDone) {
+			return;
+		}
+		form.body.value = form.body.value.trim();
+		
+		if (form.body.value.length < 5) {
+			alert("4글자 이상 입력하세요");
+			form.body.focus();
+			return;
+		}
+		
+		ReplyWrite__submitFormDone = true;
+		form.submit();
+	}
+</script>
+<!-- 댓글 폼 체크 스크립트 끝 -->
 
 <section class="w-5/6 mx-auto">
 	<header class="articleInfo">
@@ -142,8 +164,8 @@
 			</div>
 		</div>
 		<div id="reply-part">
-			<div class="mt-6">
-				<form action="../reply/doWrite" method="post">
+			<div id="reply-write-window" class="mt-6">
+				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
 					댓글
 					<c:choose>
 						<c:when test="${rq.isLogined() }">
@@ -155,6 +177,21 @@
 					</c:choose>
 					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>
 				</form>
+			</div>
+			<div id="reply-list">
+				<ul class="divide-y divide-amber-200">
+					<c:forEach var="reply" items="${replies }">
+						<li>
+							<div class="flex gap-x-11 my-2 justify-around text-base">
+								<div>${reply.extra__writer }</div>
+								<div>${reply.regDate.substring(0,16) }</div>
+							</div>
+							<div class="my-2">
+								<div>${reply.body }</div>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
 			</div>
 		</div>
 	</article>

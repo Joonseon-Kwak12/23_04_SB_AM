@@ -337,7 +337,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'article',
+relTypeCode = 'reply',
 relId = 1,
 `body` = '댓글 1';
 
@@ -346,7 +346,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'article',
+relTypeCode = 'reply',
 relId = 1,
 `body` = '댓글 2';
 
@@ -355,7 +355,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 3,
-relTypeCode = 'article',
+relTypeCode = 'reply',
 relId = 1,
 `body` = '댓글 3';
 
@@ -364,6 +364,6 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'article',
+relTypeCode = 'reply',
 relId = 2,
 `body` = '댓글 4';

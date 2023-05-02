@@ -187,4 +187,16 @@
 		WHERE id = #{relId}
 	</update>
 	
+	<update id="cancelGoodReactionPoint">
+		UPDATE article
+		SET goodReactionPoint = goodReactionPoint - 1
+		WHERE id = #{relId}
+	</update>
+	
+	<update id="cancelBadReactionPoint">
+		UPDATE article
+		SET badReactionPoint = badReactionPoint - 1
+		WHERE id = #{relId}
+	</update>
+	
 </mapper>

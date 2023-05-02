@@ -56,109 +56,97 @@
 </script> -->
 <!-- 좋아요 관련 AJAX 스크립트 끝 -->
 
-<section>
-	<header class=articleInfo>
-		<div>글번호: ${article.id }</div>
-		<div>작성일: ${article.regDate }</div>
-		<div>수정일: ${article.updateDate }</div>
-		<div>작성자: ${article.memberId }</div>
+<section class="w-5/6 mx-auto">
+	<header class="articleInfo">
+		<div class="articleInfoWrapper flex items-stretch border border-solid h-16">
+			<div id=writer-image>ㅁㅁㅁ</div>
+			<div class="grow">
+				<div>작성자: ${article.memberId }</div>
+				<div class="flex justify-start border border-solid gap-x-4">
+					<div>글번호: ${article.id }</div>
+					<div>작성일: ${article.regDate }</div>
+					<div>수정일: ${article.updateDate }</div>
+				</div>
+			</div>
+		</div>
 	</header>
-	<article>${article.body }</article>
-</section>
-
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type-1">
-			<table border="1">
-				<colgroup>
-					<col width="200" />
-				</colgroup>
-
-				<tbody>
-					<tr>
-						<th>번호</th>
-						<td>${article.id }</td>
-					</tr>
-					<tr>
-						<th>작성날짜</th>
-						<td>${article.regDate }</td>
-					</tr>
-					<tr>
-						<th>수정날짜</th>
-						<td>${article.updateDate }</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>${article.extra__writer }</td>
-					</tr>
-					<tr>
-						<th>조회수</th>
-						<td>
-							<span class="article-detail__hit-count">${article.hitCount }</span>
-						</td>
-					</tr>
-					<tr>
-						<th>추천</th>
-						<td>
-							<span>좋아요: ${article.goodReactionPoint }</span>
-							<span>싫어요: ${article.badReactionPoint }</span>
-
-							<c:if test="${rq.isLogined() }">
-								<div class="flex justify-around">
-									<c:choose>
-										<c:when test="${actorReaction==1 }">
-											<div class="bg-blue-500 px-2">
-												<a href="/usr/reactionPoint/cancelGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">△</a>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="bg-blue-50 px-2">
-												<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">△</a>
-											</div>
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${actorReaction==-1 }">
-											<div class="bg-red-500 px-2">
-												<a href="/usr/reactionPoint/cancelBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">▽</a>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="bg-red-50 px-2">
-												<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">▽</a>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</c:if>
-
-						</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td>${article.title }</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td>${article.body }</td>
-					</tr>
-				</tbody>
-
-			</table>
+	<article class="article border border-solid border-amber-200">
+		<div id="article-title-part">
+			<h1 class="ml-4 mt-4 text-2xl">
+				${article.title }
+			</h1>
 		</div>
-		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-			<!-- 			<button class="btn-text-link article-detail__like" type="button" onclick="article_like();">좋아요</button>
+		<div id="article-body-part">
+			<div class="ml-4 mt-4">
+				${article.body }
+			</div>
+			<div id="reaction-part" class="py-6">
+				<div class="flex justify-between mx-auto w-40">
+					<span>좋아요: ${article.goodReactionPoint }</span>
+					<span>싫어요: ${article.badReactionPoint }</span>
+				</div>
+				<div class="mx-auto w-40">
+					<c:if test="${rq.isLogined() }">
+						<div class="flex justify-around">
+							<c:choose>
+								<c:when test="${actorReaction==1 }">
+									<div class="bg-blue-500 px-2">
+										<a
+											href="/usr/reactionPoint/cancelReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}"
+											class="btn btn-xs">∧</a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="px-2 hover:text-blue-700 border border-solid">
+										<a
+											href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}"
+											class="btn btn-xs">∧</a>
+									</div>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${actorReaction==-1 }">
+									<div class="bg-red-500 px-2">
+										<a
+											href="/usr/reactionPoint/cancelReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}"
+											class="btn btn-xs">∨</a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="px-2 hover:text-red-500 border border-solid">
+										<a
+											href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}"
+											class="btn btn-xs">∨</a>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</c:if>
+				</div>
+
+
+			</div>
+		</div>
+		<div id="article-modify-part" class="ml-4">
+			<div class="btns">
+				<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+				<!-- 			<button class="btn-text-link article-detail__like" type="button" onclick="article_like();">좋아요</button>
 			<button class="btn-text-link article-detail__dislike" type="button" onclick="article_dislike();">싫어요</button> -->
-			<c:if test="${article.actorCanModify }">
-				<button class="btn-text-link" type="button" onclick="location.href = '../article/modify?id=${article.id}'">수정</button>
-			</c:if>
-			<c:if test="${article.actorCanDelete }">
-				<button class="btn-text-link" type="button"
-					onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false; location.href = '../article/doDelete?id=${article.id}'">삭제</button>
-			</c:if>
+				<c:if test="${article.actorCanModify }">
+					<button class="btn-text-link" type="button" onclick="location.href = '../article/modify?id=${article.id}'">수정</button>
+				</c:if>
+				<c:if test="${article.actorCanDelete }">
+					<button class="btn-text-link" type="button"
+						onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false; location.href = '../article/doDelete?id=${article.id}'">삭제</button>
+				</c:if>
+			</div>
 		</div>
-	</div>
+		<div id="reply-part">
+			<div class="h-20">
+				<!-- 댓글 부분 -->
+			</div>
+		</div>
+	</article>
 </section>
 
 

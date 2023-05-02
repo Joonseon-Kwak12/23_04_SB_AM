@@ -1,5 +1,6 @@
 package com.KoreaIT.kjs.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -37,4 +38,12 @@ public interface ReactionPointRepository {
 			`point` = -1
 			""")
 	public int addBadReactionPoint(int actorId, String relTypeCode, int relId);
+
+	@Delete("""
+			DELETE FROM reactionPoint
+			WHERE memberId = #{loginedMemberId}
+			AND relTypeCode = #{relTypeCode}
+			AND relId = #{relId}
+			""")
+	public int cancelReaction(int loginedMemberId, String relTypeCode, int relId);
 }

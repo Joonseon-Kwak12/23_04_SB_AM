@@ -230,7 +230,7 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 //		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
+		ResultData actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
 		
 		int actorReaction = reactionPointService.getActorReaction(rq.getLoginedMemberId(), "article", id);
 		

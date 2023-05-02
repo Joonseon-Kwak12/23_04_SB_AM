@@ -23,9 +23,10 @@ public class ReactionPointService {
 		
 		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode, relId);
 		
-		if (sumReactionPointByMemberId) {
-			
+		if (sumReactionPointByMemberId != 0) {
+			return ResultData.from("F-2", "추천/비추천 불가", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 		}
+		return ResultData.from("S-1", "추천/비추천 가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 	}
 	
 	public int getActorReaction(int actorId, String relTypeCode, int relId) {
@@ -65,6 +66,29 @@ public class ReactionPointService {
 		}
 
 		return ResultData.from("S-1", "싫어요 처리 완료");
+	}
+
+	public ResultData cancelReaction(int loginedMemberId, String relTypeCode, int relId, int actorReaction) {
+
+		int affectedRow = reactionPointRepository.cancelReaction(loginedMemberId, relTypeCode, relId);
+		
+		if (affectedRow != 1) {
+			return ResultData.from("F-2", "반응 취소 실패");
+		}
+		
+		switch (relTypeCode) {
+		case "article":
+			if (actorReaction == 1) {
+				articleService.cancelGoodReactionPoint(relId);
+				break;
+			}
+			if (actorReaction == -1) {
+				articleService.cancelBadReactionPoint(relId);
+				break;
+			}
+		}
+		
+		return ResultData.from("S-1", "반응 취소 완료");
 	}
 
 }

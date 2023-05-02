@@ -21,7 +21,7 @@ public class UsrReactionPointController {
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
 				
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId).isSuccess();
 		if (!actorCanMakeReaction) {
 			return rq.jsHistoryBack("F-1", "이미 반응한 게시물입니다.");
 		}
@@ -39,7 +39,7 @@ public class UsrReactionPointController {
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
 				
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId).isSuccess();
 		if (!actorCanMakeReaction) {
 			return rq.jsHistoryBack("F-1", "이미 반응한 게시물입니다.");
 		}
@@ -53,23 +53,24 @@ public class UsrReactionPointController {
 		return rq.jsReplace("싫어요!", replaceUri);
 	}
 	
-	@RequestMapping("/usr/reactionPoint/cancelGoodReaction")
+	@RequestMapping("/usr/reactionPoint/cancelReaction")
 	@ResponseBody
-	public String cancelGoodReaction(String relTypeCode, int relId, String replaceUri) {
+	public String cancelReaction(String relTypeCode, int relId, String replaceUri) {
 				
-		boolean actorCanCancelReaction = (reactionPointService.getActorReaction(rq.getLoginedMemberId(), "article", relId) == 1);
+		int actorReaction = reactionPointService.getActorReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		boolean actorCanCancelReaction = (actorReaction != 0);
+		
 		if (!actorCanCancelReaction) {
 			return rq.jsHistoryBack("F-1", "취소할 수 없습니다.");
 		}
 		
-		ResultData rd =  reactionPointService.cancelGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData rd =  reactionPointService.cancelReaction(rq.getLoginedMemberId(), relTypeCode, relId, actorReaction);
 		
 		if (rd.isFail()) {
-			rq.jsHistoryBack(rd.getMsg(), "좋아요 취소 실패");
+			rq.jsHistoryBack(rd.getMsg(), "반응 취소 실패");
 		}
 		
-		return rq.jsReplace("좋아요 취소", replaceUri);
+		return rq.jsReplace("반응 취소", replaceUri);
 	}
-	
 	
 }

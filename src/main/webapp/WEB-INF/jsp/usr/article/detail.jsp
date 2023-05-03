@@ -188,9 +188,21 @@
 								<div>${reply.extra__writer }</div>
 								<div>${reply.regDate.substring(0,16) }</div>
 							</div>
-							<div class="my-2">
-								<div>${reply.body }</div>
+							<div class="my-2 w-5/6 inline-block">
+								<div class="break-all">${reply.body }</div>
 							</div>
+							<div class="inline-block mx-2 px-2]">
+								<c:if test="${reply.actorCanModify }">
+									<a href="../reply/modify?id=${reply.id }">수정</a>
+								</c:if>
+							</div>
+							<div class="inline-block mx-2 px-2">
+								<c:if test="${reply.actorCanDelete }">
+									<a onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false;"
+										href="../reply/doDelete?id=${reply.id }">삭제</a>
+								</c:if>
+							</div>
+
 						</li>
 					</c:forEach>
 				</ul>
@@ -198,7 +210,17 @@
 		</div>
 	</article>
 </section>
+<hr />
+<div class="h-10"></div>
+<hr />
+<div>
+	<script type="text/javascript"> //https://hdg3052.tistory.com/87
+		
+	</script>
 
+</div>
+<div class="h-10"></div>
+<hr />
 
 
 <%@ include file="../common/foot.jspf"%>

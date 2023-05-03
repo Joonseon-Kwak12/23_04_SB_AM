@@ -1,12 +1,19 @@
 package com.KoreaIT.kjs.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.kjs.demo.service.ReplyService;
 import com.KoreaIT.kjs.demo.util.Ut;
+import com.KoreaIT.kjs.demo.vo.Reply;
 import com.KoreaIT.kjs.demo.vo.ResultData;
 import com.KoreaIT.kjs.demo.vo.Rq;
 
@@ -45,4 +52,12 @@ public class UsrReplyController {
 		return rq.jsReplace(writeReplyRd.getMsg(), Ut.f("../article/detail?id=%d", relId));
 	}
 	
+	@GetMapping(value="/usr/reply/getList", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody
+	public List<Reply> getList(int actorId, String relTypeCode, int relId) {
+		
+		List<Reply> replies = replyService.getForPrintReplies(actorId, relTypeCode, relId);
+		
+		return replies;
+	}
 }

@@ -1,18 +1,21 @@
 package com.KoreaIT.kjs.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.KoreaIT.kjs.demo.service.ArticleService;
 import com.KoreaIT.kjs.demo.service.ReplyService;
 import com.KoreaIT.kjs.demo.util.Ut;
+import com.KoreaIT.kjs.demo.vo.Article;
 import com.KoreaIT.kjs.demo.vo.Reply;
 import com.KoreaIT.kjs.demo.vo.ResultData;
 import com.KoreaIT.kjs.demo.vo.Rq;
@@ -26,6 +29,8 @@ public class UsrReplyController {
 	private Rq rq;
 	@Autowired
 	private ReplyService replyService;
+	@Autowired
+	private ArticleService articleService;
 
 	
 	@RequestMapping("/usr/reply/doWrite")
@@ -78,6 +83,29 @@ public class UsrReplyController {
 
 		return Ut.jsReplace(deleteReplyRd.getMsg(), replaceUri);
 	}
+	
+	@RequestMapping("/usr/reply/modify")
+	public String showModify(Model model, int id, String replaceUri) {
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBackOnView(Ut.f("%d번 댓글은 존재하지 않습니다!", id));
+		}
+
+		ResultData actorCanModifyRd = replyService.actorCanModify(rq.getLoginedMemberId(), reply);
+
+		if (actorCanModifyRd.isFail()) {
+			return rq.jsHistoryBackOnView(actorCanModifyRd.getMsg());
+		}
+
+		Article article = articleService.getArticle(reply.getRelId());
+
+		model.addAttribute("reply", reply);
+		model.addAttribute("article", article);
+
+		return "usr/reply/modify";
+	}
 	//==========================================================
 	//==========================================================
 	//==========================================================
@@ -87,10 +115,8 @@ public class UsrReplyController {
 	//==========================================================
 	@GetMapping(value="/usr/reply/getList", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public List<Reply> getList(int actorId, String relTypeCode, int relId) {
-		
-		List<Reply> replies = replyService.getForPrintReplies(actorId, relTypeCode, relId);
-		
-		return replies;
+	public ResponseEntity<List<Reply>> getList(int actorId, String relTypeCode, int relId) {
+				
+		return new ResponseEntity<>(replyService.getForPrintReplies(actorId, relTypeCode, relId), HttpStatus.OK);
 	}
 }

@@ -3,29 +3,7 @@
 <c:set var="pageTitle" value="MEMBER MYPAGE" />
 <%@ include file="../common/head.jspf"%>
 
-<!-- <script type="text/javascript">
-	var LoginForm__submitDone = false;
-	function LoginForm__submit(form) {
-		if (LoginForm__submitDone) {
-			alert('처리 중입니다.');
-			return;
-		}
-		var loginId = form.loginId.value.trim();
-		var loginPw = form.loginPw.value.trim();
-		if (loginId.length == 0) {
-			alert('아이디를 입력해주세요.');
-			form.loginId.focus();
-			return;
-		}
-		if (loginPw.length == 0) {
-			alert('비밀번호를 입력해주세요.');
-			form.loginPw.focus();
-			return;
-		}
-		LoginForm__submitDone = true;
-		form.submit();
-	}
-</script> -->
+
 
 <div>
 </div>

@@ -52,6 +52,39 @@ public class UsrReplyController {
 		return rq.jsReplace(writeReplyRd.getMsg(), Ut.f("../article/detail?id=%d", relId));
 	}
 	
+	@RequestMapping("/usr/reply/doDelete")
+	@ResponseBody
+	public String doDelete(int id, String replaceUri) {
+
+		Reply reply = replyService.getReply(id);
+
+		if (reply == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 댓글은 존재하지 않습니다", id));
+		}
+
+		if (reply.getMemberId() != rq.getLoginedMemberId()) {
+			return Ut.jsHistoryBack("F-2", Ut.f("%d번 댓글에 대한 권한이 없습니다", id));
+		}
+
+		ResultData deleteReplyRd = replyService.deleteReply(id);
+
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+		}
+
+		return Ut.jsReplace(deleteReplyRd.getMsg(), replaceUri);
+	}
+	//==========================================================
+	//==========================================================
+	//==========================================================
+	//==========================================================
+	//==========================================================
+	//==========================================================
+	//==========================================================
 	@GetMapping(value="/usr/reply/getList", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public List<Reply> getList(int actorId, String relTypeCode, int relId) {

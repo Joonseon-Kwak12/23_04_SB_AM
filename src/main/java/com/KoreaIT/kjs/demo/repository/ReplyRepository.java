@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.KoreaIT.kjs.demo.vo.Reply;
 
@@ -58,4 +59,13 @@ public interface ReplyRepository {
 		""")
 	Reply getForPrintReply(int id);
 	
+	@Update("""
+			UPDATE reply
+			<set>
+				<if test="body != null and body != ''">`body` = #{body},</if>
+				updateDate= NOW()
+			</set>
+			WHERE id = #{id}
+			""")
+	void modifyReply(int id, String body);
 }

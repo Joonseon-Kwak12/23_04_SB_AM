@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.KoreaIT.kjs.demo.interceptor.BeforeActionInterceptor;
 import com.KoreaIT.kjs.demo.interceptor.NeedLoginInterceptor;
-import com.KoreaIT.kjs.demo.interceptor.NotNeedLoginInterceptor;
+import com.KoreaIT.kjs.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
@@ -19,7 +19,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	@Autowired
 	NeedLoginInterceptor needLoginInterceptor;
 	@Autowired
-	NotNeedLoginInterceptor notNeedLoginInterceptor;
+	NeedLogoutInterceptor needLogoutInterceptor;
 	
 	//인터셉터 적용
 	@Override
@@ -53,16 +53,26 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/article/doModify");
 		ir.addPathPatterns("/usr/article/doDelete");
 		
+		ir.addPathPatterns("/usr/member/myPage");
+		ir.addPathPatterns("/usr/member/checkPw");
+		ir.addPathPatterns("/usr/member/doCheckPw");
+		ir.addPathPatterns("/usr/member/modify");
+		ir.addPathPatterns("/usr/member/doModify");
+		
 		ir.addPathPatterns("/usr/reply/doWrite");
-
+		ir.addPathPatterns("/usr/reply/modify");
+		ir.addPathPatterns("/usr/reply/doModify");
+		ir.addPathPatterns("/usr/reply/doDelete");
+	
 		ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
+		ir.addPathPatterns("/usr/reactionPoint/cancelReaction");
 		
-		ir = registry.addInterceptor(notNeedLoginInterceptor);
+		ir = registry.addInterceptor(needLogoutInterceptor);
 		ir.addPathPatterns("/usr/member/login");
 		ir.addPathPatterns("/usr/member/doLogin");
 		ir.addPathPatterns("/usr/member/join");
-		ir.addPathPatterns("/usr/member/Join");
+		ir.addPathPatterns("/usr/member/doJoin");
 	}
 
 }

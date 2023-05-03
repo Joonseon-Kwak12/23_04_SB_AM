@@ -3,11 +3,15 @@ package com.KoreaIT.kjs.demo.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.KoreaIT.kjs.demo.service.ArticleService;
 
 //만약 getAgeByName, postAgeByName 메소드에 @ResponseBody 붙이지 않을 경우, 준비된 경고창 'Request Error!' 띄워짐
 //@ResponeBody를 붙이지 않으려면 @Controller 대신 @RestController를 붙여줘야 한다.
@@ -16,10 +20,42 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AjaxTestController {
 	
-	@RequestMapping("ajaxTest1")
+	@Autowired
+	ArticleService articleService;
+	
+	@RequestMapping("/ajaxTest1")
 	public String ajaxTest1() {
 		return "/ajaxTest/ajaxTest1";
 	}
+	
+	// https://jo-coder.tistory.com/31 ajax게시판 만들기(list,페이징,검색,selectbox)(JSON형태로 AJAX비동기 통신)
+//	@RequestMapping("/ajaxTest2")
+//	public String testListView() {
+//		
+//		return "/ajaxTest/ajaxTest2";
+//	}
+//	
+//	@RequestMapping(value = "/ajaxTest2GetList", produces = "application/json")
+//	@ResponseBody
+//	public ResponseEntity<HashMap<String, Object>> getTestList() throws Exception {
+//
+//		HashMap<String, Object> result = new HashMap<>();
+//
+//		// 전체 게시글 개수를 얻어와 listCnt에 저장
+//		int listCnt = testServiceImpl.getBoardListCnt(search);
+//
+//		// 검색
+//		search.pageInfo(listCnt);
+//
+//		// 페이징
+//		result.put("pagination", search);
+//
+//		// 게시글 화면 출력
+//		result.put("list", testServiceImpl.selectTest(search));
+//
+//		return ResponseEntity.ok();
+//	}
+	// https://jo-coder.tistory.com/31 끝
 	
 	@RequestMapping("ajaxArticleListTest")
 	public String ajaxArticleListTest() {

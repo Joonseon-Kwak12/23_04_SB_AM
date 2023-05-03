@@ -27,7 +27,7 @@
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
 			<form action="../reply/doModify" method="POST" onsubmit="ReplyModify__submit(this); return false;">
-				<input type="hidden" name="id" value="${article.id }" />
+				<input type="hidden" name="id" value="${reply.id }" />
 				<table>
 					<colgroup>
 						<col width="200" />

@@ -106,6 +106,34 @@ public class UsrReplyController {
 
 		return "usr/reply/modify";
 	}
+	
+	@RequestMapping("/ur/reply/doModify")
+	public String doModify(int id, String body, String replaceUri) {
+		
+		Reply reply = replyService.getReply(id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack("F-1", Ut.f("%d번 댓글은 존재하지 않습니다", id));
+		}
+
+		ResultData actorCanModifyRd = replyService.actorCanModify(rq.getLoginedMemberId(), reply);
+
+		if (actorCanModifyRd.isFail()) {
+			return rq.jsHistoryBack(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
+		}
+
+		ResultData modifyReplyRd = replyService.modifyReply(id, body);
+
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+		}
+		
+		return rq.jsReplace(modifyReplyRd.getMsg(), replaceUri);
+	}
 	//==========================================================
 	//==========================================================
 	//==========================================================

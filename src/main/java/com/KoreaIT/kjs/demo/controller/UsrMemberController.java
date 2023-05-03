@@ -109,4 +109,10 @@ public class UsrMemberController {
 		// 위 같은 행위를 해주는 newData 메소드 새로 만들어줬음
 	}
 	
+	
+	@RequestMapping("/usr/member/myPage")
+	public String showMyPage() {
+		
+		return "usr/member/myPage";
+	}
 }

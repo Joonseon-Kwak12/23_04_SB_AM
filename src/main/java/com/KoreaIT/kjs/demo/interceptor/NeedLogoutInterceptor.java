@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.KoreaIT.kjs.demo.vo.Rq;
 
 @Component
-public class NotNeedLoginInterceptor implements HandlerInterceptor{
+public class NeedLogoutInterceptor implements HandlerInterceptor{
 	
 	@Autowired
 	Rq rq;

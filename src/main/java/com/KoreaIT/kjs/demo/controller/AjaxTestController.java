@@ -32,10 +32,10 @@ public class AjaxTestController {
 //	@RequestMapping("/ajaxTest2")
 //	public String testListView() {
 //		
-//		return "/ajaxTest/ajaxTest2";
+//		return "/ajaxTest/ajaxListTest";
 //	}
 //	
-//	@RequestMapping(value = "/ajaxTest2GetList", produces = "application/json")
+//	@RequestMapping(value = "/ajaxList", produces = "application/json")
 //	@ResponseBody
 //	public ResponseEntity<HashMap<String, Object>> getTestList() throws Exception {
 //

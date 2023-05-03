@@ -322,6 +322,8 @@ WHERE id = 124;
 
 #---------------------------------------------------------------------------------------
 # 댓글 테이블 생성
+DROP TABLE IF EXISTS reply;
+
 CREATE TABLE reply (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -337,7 +339,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'reply',
+relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 1';
 
@@ -346,7 +348,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'reply',
+relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 2';
 
@@ -355,7 +357,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 3,
-relTypeCode = 'reply',
+relTypeCode = 'article',
 relId = 1,
 `body` = '댓글 3';
 
@@ -364,6 +366,20 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
-relTypeCode = 'reply',
+relTypeCode = 'article',
 relId = 2,
 `body` = '댓글 4';
+
+SELECT * FROM reply;
+
+# reply 키 인덱스 추가
+ALTER TABLE `SB_AM_04`.`reply` ADD KEY `relTypeCodeId` (`relTypeCode` , `relId`);
+
+# SELECT 가져오는 방식 보기(어떤 단서를 갖고 가져오는가)
+EXPLAIN SELECT R.*, M.nickname AS extra__writer
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = 'article'
+AND R.relId = 1
+ORDER BY R.id DESC;

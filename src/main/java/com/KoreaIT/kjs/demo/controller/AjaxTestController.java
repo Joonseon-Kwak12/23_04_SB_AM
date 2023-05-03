@@ -21,6 +21,11 @@ public class AjaxTestController {
 		return "/ajaxTest/ajaxTest1";
 	}
 	
+	@RequestMapping("ajaxArticleListTest")
+	public String ajaxArticleListTest() {
+		return "/ajaxTest/ajaxArticleListTest";
+	}
+	
 	@GetMapping("/getAgeByName")
 	@ResponseBody
 	public Map<String, Object> getAgeByName(String inputName) {

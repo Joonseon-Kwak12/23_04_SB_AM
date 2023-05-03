@@ -167,7 +167,7 @@
 			<div id="reply-write-window" class="mt-6 border-y border-solid border-amber-200">
 				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;" class="flex p-2 gap-4">
 					<input type="hidden" name="relId" value="${article.id }"/>
-					<input type="hidden" name="relTypeCode" value="reply"/>
+					<input type="hidden" name="relTypeCode" value="article"/>
 					<div>댓글</div>
 					<c:choose>
 						<c:when test="${rq.isLogined() }">

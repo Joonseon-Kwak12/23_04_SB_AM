@@ -150,6 +150,7 @@ public class Rq {
 	}
 	
 	public String getLoginUri() {
+		
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 
@@ -163,6 +164,20 @@ public class Rq {
 		case "/usr/member/join":
 			return Ut.getEncodedUri(paramMap.get("afterLoginUri"));
 		}
+		
+		return getEncodedCurrentUri();
+	}
+	
+	public String getLogoutUri() {
+		
+		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+	}
+	
+	private String getAfterLogoutUri() {
+		// 로그아웃 후 접근 불가 페이지
+		
+		
+		String requestUri = req.getRequestURI();
 		
 		return getEncodedCurrentUri();
 	}

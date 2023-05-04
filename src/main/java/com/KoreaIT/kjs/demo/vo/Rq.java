@@ -142,6 +142,14 @@ public class Rq {
 	public void run() {
 		System.out.println("===========================run A");
 	}
+	
+	public String getLoginUri() {
+		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+	}
+
+	private String getAfterLoginUri() {
+		return getEncodedCurrentUri();
+	}
 
 
 

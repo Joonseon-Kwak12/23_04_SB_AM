@@ -174,10 +174,20 @@
 							<textarea placeholder="댓글 내용을 입력해주세요." name="body" rows="3" class="rounded resize-none grow border border-solid border-gray-400"></textarea>
 						</c:when>
 						<c:when test="${!rq.isLogined() }">
-							<textarea disabled placeholder="로그인 후 이용 가능합니다." name="body" rows="3" class="rounded resize-none grow border border-solid border-gray-400"></textarea>
+							<div class="rounded resize-none grow border border-solid border-gray-400 h-16" >
+								<a href="../member/login?afterLoginUri=${rq.loginUri }" class="text-blue-500">로그인</a>
+								<span> 후 이용 가능합니다.</span>
+							</div>
 						</c:when>
 					</c:choose>
-					<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>
+					<c:choose>
+						<c:when test="${rq.isLogined() }">
+							<button type="submit" class="w-24 h-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>
+						</c:when>
+						<c:when test="${!rq.isLogined() }">
+							<button disabled="disabled" type="submit" class="w-24 <h></h>-6 border-solid border-gray-400 bg-black text-white text-sm rounded">댓글쓰기</button>
+						</c:when>
+					</c:choose>
 				</form>
 			</div>
 			<div id="reply-list">

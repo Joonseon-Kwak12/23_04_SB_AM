@@ -44,7 +44,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<a href="../member/checkPw">회원정보 수정</a>
+							<a href="../member/checkPw?replaceUri=${Ut.getEncodedUri('../member/modify') }">회원정보 수정</a>
 						</td>
 					</tr>
 				</tbody>

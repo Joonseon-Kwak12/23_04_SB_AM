@@ -7,28 +7,55 @@
 
 <!-- Member modify 관련 폼 체크 -->
 <script>
-function MemberModify__submit(form) {
+	let MemberModify__submitFormDone = false;
 	
-	if (MemberModify__submitFormDone) {
-		return;
-	}
-	form.loginPw.value = form.loginPw.value.trim();
-	
-	if (form.loginPw.value.length > 0) {
-		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+	function MemberModify__submit(form) {
 		
+		if (MemberModify__submitFormDone) {
+			return;
+		}
 		
+		form.loginPw.value = form.loginPw.value.trim();
+		
+		if (form.loginPw.value.length > 0) {
+			form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+			if (form.loginPwConfirm.value.length == 0) {
+				alert('비밀번호 확인을 입력해주세요');
+				form.loginPwConfirm.focus();
+				return;
+			}
+			if (form.loginPw.value != form.loginPwConfirm.value) {
+				alert('비밀번호가 일치하지 않습니다.');
+				form.loginPw.focus();
+				return;
+			}
+		}
+		
+		form.name.value = form.name.value.trim();
+		form.nickname.value = form.nickname.value.trim();
+		form.cellphoneNum.value = form.cellphoneNum.value.trim();
+		form.email.value = form.email.value.trim();
+		
+		if (form.name.value.length == 0) {
+			alert('name을 입력해주세요.');
+			form.name.focus();
+		}
+		if (form.nickname.value.length == 0) {
+			alert('nickname을 입력해주세요.');
+			form.nickname.focus();
+		}
+		if (form.cellphoneNum.value.length == 0) {
+			alert('cellphoneNum을 입력해주세요.');
+			form.cellphoneNum.focus();
+		}
+		if (form.email.value.length == 0) {
+			alert('email을 입력해주세요.');
+			form.email.focus();
+		}
+		
+		MemberModify__submitFormDone = true;
+		form.submit();
 	}
-	
-	
-	form.nickname.value = form.nickname.value.trim();
-	form.cellphoneNum.value = form.cellphoneNum.value.trim();
-	form.name.value = form.name.value.trim();
-	form.email.value = form.email.value.trim();
-	
-	MemberModify__submitFormDone = true;
-	form.submit();
-}
 </script>
 
 <section class="mt-8 text-xl">
@@ -51,27 +78,27 @@ function MemberModify__submit(form) {
 					</tr>
 					<tr>
 						<th>새 비밀번호</th>
-						<td><input placeholder="새 비밀번호를 입력해주세요." type="text" /></td>
+						<td><input name="loginPw" placeholder="새 비밀번호를 입력해주세요." type="text" /></td>
 					</tr>
 					<tr>
 						<th>새 비밀번호 확인</th>
-						<td><input placeholder="새 비밀번호 확인을 입력해주세요." type="text" /></td>
+						<td><input name="loginPwConfirm" placeholder="새 비밀번호 확인을 입력해주세요." type="text" /></td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td>${rq.loginedMember.name }</td>
+						<td><input name="name" value="${rq.loginedMember.name }" placeholder="이름을 입력해주세요." type="text" /></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td><input value="${rq.loginedMember.nickname }" type="text" /> </td>
+						<td><input name="nickname" value="${rq.loginedMember.nickname }" placeholder="닉네임을 입력해주세요" type="text" /> </td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td><input value="${rq.loginedMember.cellphoneNum }" type="text" /> </td>
+						<td><input name="cellphoneNum" value="${rq.loginedMember.cellphoneNum }" placeholder="전화번호를 입력해주세요" type="text" /> </td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input value="${rq.loginedMember.email }" type="text" /> </td>
+						<td><input name="email" value="${rq.loginedMember.email }" placeholder="이메일을 입력해주세요" type="text" /> </td>
 					</tr>
 					<tr>
 						<th></th>

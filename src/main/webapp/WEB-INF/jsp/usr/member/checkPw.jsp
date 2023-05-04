@@ -9,6 +9,7 @@
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
 			<form action="../member/doCheckPw" method="POST">
+			<input type="text" name="replaceUri"/>
 				<table border="1">
 					<colgroup>
 						<col width="200" />
@@ -22,7 +23,7 @@
 						<tr>
 							<th>비밀번호</th>
 							<td>
-								<input class="input input-bordered w-full max-w-xs" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요"
+								<input required="required" class="input input-bordered w-full max-w-xs" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요"
 									name="loginPw" />
 							</td>
 						</tr>

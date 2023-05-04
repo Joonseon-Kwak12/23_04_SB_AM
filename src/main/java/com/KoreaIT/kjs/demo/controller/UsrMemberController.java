@@ -123,57 +123,47 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doCheckPw")
-	public String doCheckPw(String loginPw) {
+	@ResponseBody
+	public String doCheckPw(String loginPw, String replaceUri) {
 		
 		if(Ut.empty(loginPw)) {
-			return rq.jsHistoryBackOnView("비밀번호를 입력해주세요.");
+			return rq.jsHistoryBack("", "비밀번호를 입력해주세요.");
 		}
 		
 		if(!rq.getLoginedMember().getLoginPw().equals(loginPw)) {
-			return rq.jsHistoryBackOnView("비밀번호가 일치하지 않습니다.");
+			return rq.jsHistoryBack("", "비밀번호가 일치하지 않습니다.");
 		}
 		
-		return "usr/member/modify";
+		return rq.jsReplace("", replaceUri);
 	}
 	
 	@RequestMapping("/usr/member/modify")
-	public String modify() {
+	public String showModify() {
 		
 		return "usr/member/modify";
 	}
 	
-//	@RequestMapping("/usr/member/doModify")
-//	public ResultData<Member> doModify() {
-//		
-//		if (Ut.empty(loginId)) {
-//			return ResultData.from("F-1", "아이디를 입력해주세요.");
-//		}
-//		if (Ut.empty(loginPw)) {
-//			return ResultData.from("F-2", "비밀번호를 입력해주세요");
-//		}
-//		if (Ut.empty(name)) {
-//			return ResultData.from("F-3", "이름을 입력해주세요");
-//		}
-//		if (Ut.empty(nickname)) {
-//			return ResultData.from("F-4", "닉네임을 입력해주세요");
-//		}
-//		if (Ut.empty(cellphoneNum)) {
-//			return ResultData.from("F-5", "전화번호를 입력해주세요");
-//		}
-//		if (Ut.empty(email)) {
-//			return ResultData.from("F-6", "이메일을 입력해주세요");
-//		}
-//		
-//		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
-//		
-//		if (joinRd.isFail()) {
-//			return (ResultData) joinRd; // 어차피 isFail() == true이면 null이라서 return 가능하긴 함...
-//		}
-//				
-//		Member member = memberService.getMemberById(joinRd.getData1());
-//
-//		return ResultData.newData(joinRd, "member", member);
-//		
-//		return "usr/member/myPage";
-//	}
+	@RequestMapping("/usr/member/doModify")
+	public String doModify(String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		
+		if (Ut.empty(loginPw)) {
+			loginPw = null;
+		}
+		if (Ut.empty(name)) {
+			return rq.jsHistoryBackOnView("name 입력해주세요.");
+		}
+		if (Ut.empty(nickname)) {
+			return rq.jsHistoryBackOnView("nickname 입력해주세요.");
+		}
+		if (Ut.empty(cellphoneNum)) {
+			return rq.jsHistoryBackOnView("cellphoneNum 입력해주세요.");
+		}
+		if (Ut.empty(email)) {
+			return rq.jsHistoryBackOnView("email 입력해주세요.");
+		}
+		
+		ResultData modifyRd = memberService.modify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNum, email);
+		
+		return rq.jsReplace(modifyRd.getMsg(), "../member/myPage");
+	}
 }

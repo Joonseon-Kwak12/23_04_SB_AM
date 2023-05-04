@@ -40,6 +40,13 @@ public class MemberService {
 		
 		return ResultData.from("S-1", "회원가입이 완료되었습니다.", "id", id);
 	}
+	
+	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+
+		memberRepository.modify(id, loginPw, name, nickname, cellphoneNum, email);
+				
+		return ResultData.from("S-1", "회원정보 수정이 완료되었습니다.");
+	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);

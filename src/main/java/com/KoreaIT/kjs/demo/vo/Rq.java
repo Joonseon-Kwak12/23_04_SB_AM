@@ -132,4 +132,8 @@ public class Rq {
 		
 	}
 
+	public void run() {
+		System.out.println("===========================run A");
+	}
+
 }

@@ -12,14 +12,17 @@ import com.KoreaIT.kjs.demo.vo.Rq;
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor{
 
-	@Autowired
 	private Rq rq;
+	
+	public BeforeActionInterceptor(Rq rq) {
+		this.rq = rq;
+	}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler)
 			throws Exception {
 
-		rq.initOnbeforeActionInterceptor();
+		req.setAttribute("rq", rq);
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}

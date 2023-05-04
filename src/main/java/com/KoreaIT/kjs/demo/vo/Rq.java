@@ -105,6 +105,13 @@ public class Rq {
 		return Ut.jsReplace(msg, uri);
 	}
 	
+	public void jsPrintReplace(String msg, String replaceUri) {
+		
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		print(Ut.jsReplace(msg, replaceUri));
+	}
+	
 	public String getCurrentUri() {
 		
 		String currentUri = req.getRequestURI();
@@ -135,5 +142,7 @@ public class Rq {
 	public void run() {
 		System.out.println("===========================run A");
 	}
+
+
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.KoreaIT.kjs.demo.util.Ut;
 import com.KoreaIT.kjs.demo.vo.Rq;
 
 @Component
@@ -22,8 +23,10 @@ public class NeedLoginInterceptor implements HandlerInterceptor{
 		if (!rq.isLogined()) {
 			//resp.getWriter().append("<script> ~~~")
 			
-			rq.printHistoryBackJS("로그인 후 이용해주세요");
 			// resp.sendRedirect("/usr/member/doLogin");
+			// rq.printHistoryBackJS("로그인 후 이용해주세요");
+			String afterLoginUri = rq.getEncodedCurrentUri();
+			rq.jsPrintReplace("로그인 후 이용해주세요", "../member/login?afterLoginUri=" + afterLoginUri);
 			return false;
 		}
 		

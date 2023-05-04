@@ -3,6 +3,7 @@ package com.KoreaIT.kjs.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.kjs.demo.service.MemberService;
@@ -40,7 +41,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw) throws Exception {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue = "/")String afterLoginUri ) throws Exception {
 		
 		if (rq.isLogined()) {
 			return Ut.jsHistoryBack("F-5", "이미 로그인 상태입니다.");
@@ -65,7 +66,7 @@ public class UsrMemberController {
 		
 		rq.login(member);
 		
-		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), "/");
+		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), afterLoginUri);
 	}
 	
 	@RequestMapping("/usr/member/doJoin")

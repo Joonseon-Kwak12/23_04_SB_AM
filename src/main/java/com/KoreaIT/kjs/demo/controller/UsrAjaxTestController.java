@@ -11,12 +11,14 @@ public class UsrAjaxTestController {
 
 	@RequestMapping("usr/home/plus")
 	String showTestPage() {
+		
 		return "usr/home/AjaxTest";
 	}
 	
 	@RequestMapping("usr/home/doPlus")
 	@ResponseBody
-	String doPlus() {
-		return "usr/home/AjaxTest";
+	int doPlus(int num1, int num2) {
+		
+		return num1 + num2;
 	}
 }

@@ -40,11 +40,11 @@
 						<span>HOME</span>
 					</a>
 				</li>
-				<li>
+				<li class="group">
 					<a class="h-full px-3 flex items-center hover:underline" href="/usr/article/list">
 						<span>LIST</span>
 					</a>
-					<ul class="z-2 hidden">
+					<ul class="z-2 hidden group-hover:block absolute bg-white">
 						<li>
 							<a href="/usr/article/list?boardId=1" class="hover:underline">NOTICE</a>
 						</li>

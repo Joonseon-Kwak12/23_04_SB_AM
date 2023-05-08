@@ -1,5 +1,7 @@
 package com.KoreaIT.kjs.demo.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +26,13 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogout(@RequestParam(defaultValue = "/")String afterLogoutUri) {
 		
-		if (!rq.isLogined()) {
-			return Ut.jsHistoryBack("F-1", "이미 로그아웃 상태입니다.");
-		}
-		
 		rq.logout();
 		
 		return Ut.jsReplace("S-1", "로그아웃 되었습니다.", afterLogoutUri);
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String login() {
+	public String showLogin(HttpSession httpSession) {
 		
 		return "usr/member/login";
 	}
@@ -66,48 +64,63 @@ public class UsrMemberController {
 		
 		rq.login(member);
 		
+		// 우리가 갈 수 있는 경로를 경우의 수로 표현
+		// 인코딩
+		// 그 외에는 처리 불가 -> 메인으로 보내자
+		
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), afterLoginUri);
+	}
+	
+	@RequestMapping("/usr/member/join")
+	public String join() {
+		
+		return "usr/member/join";
 	}
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email, @RequestParam(defaultValue = "/") String afterLoginUri) {
 //		int countOfLoginId = memberService.getCountOfLoginId(loginId);
 //		
 //		if (countOfLoginId != 0) {
 //			return "이미 사용중인 아이디입니다.";
 //		}
 		if (Ut.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요.");
+			return rq.jsHistoryBack("F-1", "아이디를 입력해주세요.");
 		}
 		if (Ut.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀번호를 입력해주세요");
+			return rq.jsHistoryBack("F-2", "비밀번호를 입력해주세요");
 		}
 		if (Ut.empty(name)) {
-			return ResultData.from("F-3", "이름을 입력해주세요");
+			return rq.jsHistoryBack("F-3", "이름을 입력해주세요");
 		}
 		if (Ut.empty(nickname)) {
-			return ResultData.from("F-4", "닉네임을 입력해주세요");
+			return rq.jsHistoryBack("F-4", "닉네임을 입력해주세요");
 		}
 		if (Ut.empty(cellphoneNum)) {
-			return ResultData.from("F-5", "전화번호를 입력해주세요");
+			return rq.jsHistoryBack("F-5", "전화번호를 입력해주세요");
 		}
 		if (Ut.empty(email)) {
-			return ResultData.from("F-6", "이메일을 입력해주세요");
+			return rq.jsHistoryBack("F-6", "이메일을 입력해주세요");
 		}
 		
 		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if (joinRd.isFail()) {
-			return (ResultData) joinRd; // 어차피 isFail() == true이면 null이라서 return 가능하긴 함...
+			return rq.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg()); // 어차피 isFail() == true이면 null이라서 return 가능하긴 함...
 		}
 				
 		Member member = memberService.getMemberById(joinRd.getData1());
+		
+		String afterJoinUri = "../member/login?afterLoginUri=" + Ut.getEncodedUri(afterLoginUri);
 
-		return ResultData.newData(joinRd, "member", member);
+		// return ResultData.newData(joinRd, "member", member);
 		// 성공했을 때 반환받은 ResultData에는 data1 자리에 회원 id만 들어가 있음,
 		// 회원 객체 전체를 반환해주려고 시도하려면 원래 ResultData 인스턴스 data1 자리에 있는 것을 member로 교체
 		// 위 같은 행위를 해주는 newData 메소드 새로 만들어줬음
+		
+		//방식 바꾸면서 String return
+		return Ut.jsReplace("S-1", Ut.f("회원가입이 완료되었습니다"), afterJoinUri);
 	}
 	
 	

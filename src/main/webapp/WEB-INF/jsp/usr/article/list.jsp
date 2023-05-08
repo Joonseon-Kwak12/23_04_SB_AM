@@ -44,7 +44,7 @@
 							<div>${article.badReactionPoint}</div>
 						</div>
 						<div class="font-semibold my-2">
-							<a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a>
+							<a class="hover:underline" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
 						</div>
 					</li>
 				</c:forEach>

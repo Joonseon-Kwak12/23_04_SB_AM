@@ -6,7 +6,8 @@
 
 
 
-<script type="text/javascript"> /* 폼체크 */
+<script type="text/javascript">
+	/* 폼체크 */
 	let ArticleModify__submitFormDone = false;
 	function ArticleModify__submit(form) {
 		if (ArticleModify__submitFormDone) {
@@ -28,6 +29,7 @@
 		<div class="table-box-type-1">
 			<form action="../reply/doModify" method="POST" onsubmit="ReplyModify__submit(this); return false;">
 				<input type="hidden" name="id" value="${reply.id }" />
+				<input type="hidden" name="replaceUri" value="${param.replaceUri }" />
 				<table>
 					<colgroup>
 						<col width="200" />
@@ -69,13 +71,10 @@
 						<tr>
 							<th></th>
 							<td>
-								<button type="submit" value="수정">
-								수정
-								</button>
+								<button type="submit" value="수정">수정</button>
 							</td>
 						</tr>
 					</tbody>
-
 				</table>
 			</form>
 		</div>

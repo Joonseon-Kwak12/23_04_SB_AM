@@ -168,6 +168,7 @@
 				<form action="../reply/doWrite" method="post" onsubmit="ReplyWrite__submitForm(this); return false;" class="flex p-2 gap-4">
 					<input type="hidden" name="relId" value="${article.id }"/>
 					<input type="hidden" name="relTypeCode" value="article"/>
+					<input type="hidden" name="replaceUri" value="${rq.currentUri }" />
 					<div>댓글</div>
 					<c:choose>
 						<c:when test="${rq.isLogined() }">
@@ -203,13 +204,13 @@
 							</div>
 							<div class="inline-block mx-2 px-2]">
 								<c:if test="${reply.actorCanModify }">
-									<a href="../reply/modify?id=${reply.id }">수정</a>
+									<a href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">수정</a>
 								</c:if>
 							</div>
 							<div class="inline-block mx-2 px-2">
 								<c:if test="${reply.actorCanDelete }">
 									<a onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false;"
-										href="../reply/doDelete?id=${reply.id }">삭제</a>
+										href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">삭제</a>
 								</c:if>
 							</div>
 

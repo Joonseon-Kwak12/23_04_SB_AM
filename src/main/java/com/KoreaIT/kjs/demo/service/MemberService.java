@@ -76,6 +76,11 @@ public class MemberService {
 		session.setAttribute("loginId", loginId);
 		session.setAttribute("loginPw", loginPw);
 	}
+
+	public String checkLoginIdDup(String loginId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 //	public int getCountOfLoginId(String loginId) {

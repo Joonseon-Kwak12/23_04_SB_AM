@@ -3,6 +3,9 @@
 <c:set var="pageTitle" value="JOIN" />
 <%@ include file="../common/head.jspf"%>
 
+<!-- lodash 라이브러리 -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
 <script>
 	let submitJoinFormDone = false;
 	let validLoginId = "";
@@ -64,20 +67,28 @@
 			validLoginId = "";
 			return;
 		}
+		
+		if (validLoginId == form.loginId.value) {
+			return;
+		}
 
 		$.get("../member/getLoginIdDup",
 				{isAjax : "Y", loginId : form.loginId.value},
 				function(data) {
-					$('.checkDup-msg').html(
-							"<div class='p-2'>" + data.msg + "</div>");
 					if (data.success) {
+						$('.checkDup-msg').html("<div class='p-2 text-blue-500'>" + data.msg + "</div>");
 						validLoginId = data.data1;
 					} else {
+						$('.checkDup-msg').html("<div class='p-2 text-red-500'>" + data.msg + "</div>");
 						validLoingId = "";
 					}
 				},
-				"json");
+				"json");	
 	}
+	
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 300);
+	
+	
 </script>
 
 <section class="mt-8 text-xl">
@@ -93,7 +104,7 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input onkeyup=checkLoginIdDup(this) name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력해주세요" autocomplete="off" />
+							<input onkeyup=checkLoginIdDupDebounced(this) name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력해주세요" autocomplete="off" />
 							<!-- <button id="loing-dup-check" type="button" onclick="loginDupCheck(loginId)" value="아이디 중복 확인"></button> -->
 							<div class="checkDup-msg h-10"></div>
 						</td>

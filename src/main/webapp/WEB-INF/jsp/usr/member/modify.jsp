@@ -39,18 +39,22 @@
 		if (form.name.value.length == 0) {
 			alert('name을 입력해주세요.');
 			form.name.focus();
+			return;
 		}
 		if (form.nickname.value.length == 0) {
 			alert('nickname을 입력해주세요.');
 			form.nickname.focus();
+			return;
 		}
 		if (form.cellphoneNum.value.length == 0) {
 			alert('cellphoneNum을 입력해주세요.');
 			form.cellphoneNum.focus();
+			return;
 		}
 		if (form.email.value.length == 0) {
 			alert('email을 입력해주세요.');
 			form.email.focus();
+			return;
 		}
 
 		MemberModify__submitFormDone = true;

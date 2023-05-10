@@ -29,7 +29,7 @@
 	}
 </script> -->
 
-<div class="m-auto p-6 w-[300px] bg-[#3B5998] rounded text-center">
+<div class="m-auto p-6 pb-3 w-[300px] bg-[#3B5998] rounded text-center">
 	<!-- form의 att로 onsubmit 필요 없음 onsubmit="LoginForm__submit(this); return false;" -->
 	<form method="post" action="doLogin" class="flex flex-col items-center gap-3">
 	<!-- 브라우저에서 비밀번호 암호화해서 넘길 경우 -->
@@ -41,7 +41,12 @@
 		<input type="text" placeholder="비밀번호를 입력해주세요." name="loginPw" class="rounded w-full" />
 		<button type="submit" class="w-24 h-6 bg-white text-sm rounded">로그인</button>
 	</form>
-	<a class="text-xs text-white" href="#"> 비밀번호를 잊어버리셨나요? </a>
+	<div>
+		<a class="text-xs text-white" href="${rq.getFindLoginIdUri() }"> 아이디를 잊어버리셨나요? </a>
+	</div>
+	<div>
+		<a class="text-xs text-white" href="${rq.getFindLoginPwUri() }"> 비밀번호를 잊어버리셨나요? </a>
+	</div>
 </div>
 
 <!-- 브라우저에서 암호화 해서 넘길 경우 -->

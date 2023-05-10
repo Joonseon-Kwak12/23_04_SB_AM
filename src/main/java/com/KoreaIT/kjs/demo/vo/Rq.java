@@ -204,5 +204,22 @@ public class Rq {
 
 		return getEncodedCurrentUri();
 	}
+	
+	// 아이디 비번 찾기 관련
+	public String getFindLoginIdUri() {
+		return "../member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
+	}
+
+	private String getAfterFindLoginIdUri() {
+		return getEncodedCurrentUri();
+	}
+
+	public String getFindLoginPwUri() {
+		return "../member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
+	}
+
+	private String getAfterFindLoginPwUri() {
+		return getEncodedCurrentUri();
+	}
 
 }

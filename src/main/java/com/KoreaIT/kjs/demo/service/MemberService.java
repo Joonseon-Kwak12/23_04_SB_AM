@@ -50,7 +50,7 @@ public class MemberService {
 		return ResultData.from("S-1", "회원정보 수정이 완료되었습니다.");
 	}
 
-	private Member getMemberByNameAndEmail(String name, String email) {
+	public Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
 

@@ -232,6 +232,16 @@ CREATE TABLE `member`(
     delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
+### 회원 비밀번호 암호화
+ALTER TABLE `member` MODIFY COLUMN loginPw CHAR(80) NOT NULL;
+
+UPDATE `member` SET loginPw = 'admin' WHERE loginId = 'admin';
+UPDATE `member` SET loginPw = 'test1' WHERE loginId = 'test1';
+UPDATE `member` SET loginPw = 'test2' WHERE loginId = 'test2';
+
+SELECT SHA2('hello', 256);
+UPDATE `member` SET loginPw = SHA2(loginPw, 256);
+
 # 회원 테스트데이터 생성(관리자)
 INSERT INTO `member`
 SET regDate = NOW(),

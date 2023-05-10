@@ -58,8 +58,10 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-3", Ut.f("%s는 존재하지 않는 아이디입니다.", loginId));
 		}
 		
-		if(member.getLoginPw().equals(loginPw) == false) {
-			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다.", loginId));
+		System.out.println(Ut.sha256(loginPw));
+
+		if (member.getLoginPw().equals(Ut.sha256(loginPw)) == false) {
+			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다."));
 		}
 		
 		rq.login(member);
@@ -161,7 +163,7 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("", "비밀번호를 입력해주세요.");
 		}
 		
-		if(!rq.getLoginedMember().getLoginPw().equals(loginPw)) {
+		if (rq.getLoginedMember().getLoginPw().equals(Ut.sha256(loginPw)) == false) {
 			return rq.jsHistoryBack("", "비밀번호가 일치하지 않습니다.");
 		}
 		
@@ -175,10 +177,12 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doModify")
-	public String doModify(String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public String doModify(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		if (Ut.empty(loginPw)) {
 			loginPw = null;
+		} else {
+			loginPw = Ut.sha256(loginPw);
 		}
 		if (Ut.empty(name)) {
 			return rq.jsHistoryBackOnView("name 입력해주세요.");

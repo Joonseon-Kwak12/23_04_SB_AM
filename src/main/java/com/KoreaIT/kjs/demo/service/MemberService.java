@@ -34,6 +34,8 @@ public class MemberService {
 			return ResultData.from("F-8", Ut.f("동일한 이름(%s)과 이메일(%s)이 사용 중입니다.", name, email));
 		}
 		
+		loginPw = Ut.sha256(loginPw);
+		
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		int id = memberRepository.getLastInsertId();

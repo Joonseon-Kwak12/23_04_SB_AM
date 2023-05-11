@@ -20,6 +20,8 @@ import lombok.Getter;
 public class Rq {
 
 	@Getter
+	boolean isAjax;
+	@Getter
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
@@ -50,13 +52,31 @@ public class Rq {
 			loginedMember = (Member) session.getAttribute("loginedMember");
 			// loginedMember = memberService.getMemberById(loginedMemberId);
 			// session에 loginedMember를 저장하는 게 나은가 아니면 memberService를 끌고 오는 게 나은가?
-			
-			this.req.setAttribute("rq", this);
 		}
 		
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
+		
+		this.req.setAttribute("rq", this);
+		
+		String requestUri = req.getRequestURI();
+
+		boolean isAjax = requestUri.endsWith("Ajax");
+
+		if (isAjax == false) {
+			if (paramMap.containsKey("ajax") && paramMap.get("ajax").equals("Y")) {
+				isAjax = true;
+			} else if (paramMap.containsKey("isAjax") && paramMap.get("isAjax").equals("Y")) {
+				isAjax = true;
+			}
+		}
+		if (isAjax == false) {
+			if (requestUri.contains("/get")) {
+				isAjax = true;
+			}
+		}
+		this.isAjax = isAjax;
 	}
 
 	public void printHistoryBackJS(String msg) throws IOException {
@@ -141,7 +161,7 @@ public class Rq {
 	
 	public String getArticleDetailUriFromArticleList(Article article) {
 		
-		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+		return "/usr/article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
 	}
 
 	// Rq 객체 생성 유도
@@ -157,16 +177,16 @@ public class Rq {
 	
 	public String getJoinUri() {
 		
-		return "../member/join?afterLoginUri=" + getAfterLoginUri();
+		return "/usr/member/join?afterLoginUri=" + getAfterLoginUri();
 	}
 
 	
 	public String getLoginUri() {
 		
-		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+		return "/usr/member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 
-	private String getAfterLoginUri() {
+	public String getAfterLoginUri() {
 		// 로그인 후 접근 불가 페이지
 		
 		String requestUri = req.getRequestURI();
@@ -187,11 +207,14 @@ public class Rq {
 		switch (requestUri) {
 		case "/usr/article/write":
 			return "../member/doLogout?afterLogoutUri=" + "/";
+		case "/adm/memberAndArticle/list":
+			return "../member/doLogout?afterLogoutUri=" + "/";
 		}
+	
 		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 	
-	private String getAfterLogoutUri() {
+	public String getAfterLogoutUri() {
 		// 로그아웃 후 접근 불가 페이지
 		
 		String requestUri = req.getRequestURI();
@@ -207,7 +230,7 @@ public class Rq {
 	
 	// 아이디 비번 찾기 관련
 	public String getFindLoginIdUri() {
-		return "../member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
+		return "/usr/member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
 	}
 
 	private String getAfterFindLoginIdUri() {
@@ -215,11 +238,18 @@ public class Rq {
 	}
 
 	public String getFindLoginPwUri() {
-		return "../member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
+		return "/usr/member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
 	}
 
 	private String getAfterFindLoginPwUri() {
 		return getEncodedCurrentUri();
 	}
 
+	public boolean isAdmin() {
+		if (isLogined == false) {
+			return false;
+		}
+
+		return loginedMember.isAdmin();
+	}
 }

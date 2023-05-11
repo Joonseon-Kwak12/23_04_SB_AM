@@ -10,5 +10,24 @@ spring:
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/SB_AM_04?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     username: root
     password: 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: # 임시로 생성할 메일 계정@gmail.com
+#    password: 앱비밀번호 16자리 
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 mybatis:
   type-aliases-package: com.KoreaIT.kjs.demo.vo
+custom:
+  siteName: SB_AM_04
+  siteMainUri: http://localhost:8081
+  emailFrom: no-reply@localhost
+  emailFromName: SB_AM_04
+  logging:
+    dir: log
+    level: debug

@@ -210,8 +210,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doFindLoginId")
 	@ResponseBody
-	public String doFindLoginId(@RequestParam(defaultValue = "/") String afterFindLoginIdUri, String name,
-			String email) {
+	public String doFindLoginId(@RequestParam(defaultValue = "/") String afterFindLoginIdUri, String name, String email) {
 
 		Member member = memberService.getMemberByNameAndEmail(name, email);
 
@@ -220,6 +219,31 @@ public class UsrMemberController {
 		}
 
 		return Ut.jsReplace("S-1", Ut.f("아이디는 [ %s ]입니다", member.getLoginId()), afterFindLoginIdUri);
+	}
+	
+	@RequestMapping("/usr/member/findLoginPw")
+	public String showFindLoginPw() {
+
+		return "usr/member/findLoginPw";
+	}
+
+	@RequestMapping("/usr/member/doFindLoginPw")
+	@ResponseBody
+	public String doFindLoginPw(@RequestParam(defaultValue = "/") String afterFindLoginPwUri, String loginId, String email) {
+
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null) {
+			return Ut.jsHistoryBack("F-1", "존재하지 않는 회원정보입니다.");
+		}
+		
+		if (!member.getEmail().equals(email)) {
+			return Ut.jsHistoryBack("F-2", "이메일 주소가 일치하지 않습니다.");
+		}
+		
+		ResultData notifyTempLoginPwByEmailRd = memberService.notifyTempLoginPwByEmail(member);
+
+		return Ut.jsReplace(notifyTempLoginPwByEmailRd.getResultCode(), notifyTempLoginPwByEmailRd.getMsg(), afterFindLoginPwUri);
 	}
 	
 }
